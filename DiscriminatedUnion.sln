@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscriminatedUnion", "DistributedUnion\DiscriminatedUnion.csproj", "{1777ABBD-3579-4B99-B2E2-24ED3E834F84}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscriminatedUnion", "DiscriminatedUnion\DiscriminatedUnion.csproj", "{1777ABBD-3579-4B99-B2E2-24ED3E834F84}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscriminatedUnionTests", "DiscriminatedUnionTests\DiscriminatedUnionTests.csproj", "{0B741851-0979-4333-BA94-49F3F6086C9A}"
 EndProject

@@ -54,7 +54,7 @@
     <Compile Include="UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DistributedUnion\DiscriminatedUnion.csproj">
+    <ProjectReference Include="..\DiscriminatedUnion\DiscriminatedUnion.csproj">
       <Project>{1777abbd-3579-4b99-b2e2-24ed3e834f84}</Project>
       <Name>DiscriminatedUnion</Name>
     </ProjectReference>
