@@ -2,18 +2,24 @@
 {
 	using System;
 
+	/// <summary>
+	/// Two Item Union.
+	/// </summary>
+	/// <typeparam name="T1">The type of the 1.</typeparam>
+	/// <typeparam name="T2">The type of the 2.</typeparam>
+	/// <seealso cref="DiscriminatedUnion.IUnion" />
 	public class Union<T1, T2> : IUnion
 	{
-		private readonly Tuple<Type, object> Value;
+		private readonly ITypedContainer Value;
 
 		public Union(T1 value)
 		{
-			this.Value = Tuple.Create(typeof(T1), (object)value);
+			this.Value = new TypedContainer<T1>(value);
 		}
 
 		public Union(T2 value)
 		{
-			this.Value = Tuple.Create(typeof(T2), (object)value);
+			this.Value = new TypedContainer<T2>(value);
 		}
 
 		public static implicit operator Union<T1, T2>(T1 item)
