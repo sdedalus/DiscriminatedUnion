@@ -8,11 +8,13 @@ namespace DiscriminatedUnion
 	public interface ITypedContainer
 	{
 		/// <summary>
-		/// Gets the type of the contained.
+		/// Gets the type of the contained value.
 		/// </summary>
 		/// <value>
 		/// The type of the contained.
 		/// </value>
-		Type ContainedType { get; }
+		Type ContainedValueType { get; }
+
+		IContainType<T> ToContainedType<T>();
 	}
 }

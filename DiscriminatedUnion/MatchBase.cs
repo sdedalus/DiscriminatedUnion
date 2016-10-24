@@ -52,9 +52,9 @@
 		/// <returns></returns>
 		Unit IMatchIng<TReturn>.SetReturnIfMatch<T>(Func<T, TReturn> func)
 		{
-			if (!matched && value.ContainedType == typeof(T))
+			if (!matched && value.ContainedValueType == typeof(T))
 			{
-				returnValue = func(((TypedContainer<T>)value).ContainedValue);
+				returnValue = func(value.ToContainedType<T>().ContainedValue);
 				matched = true;
 			}
 
@@ -70,9 +70,9 @@
 		/// <returns></returns>
 		Unit IMatchIng<TReturn>.SetReturnIfMatch<T>(Func<T, bool> condition, Func<T, TReturn> func)
 		{
-			if (!matched && value.ContainedType == typeof(T) && condition(((TypedContainer<T>)value).ContainedValue))
+			if (!matched && value.ContainedValueType == typeof(T) && condition(((TypedContainer<T>)value).ContainedValue))
 			{
-				returnValue = func(((TypedContainer<T>)value).ContainedValue);
+				returnValue = func(value.ToContainedType<T>().ContainedValue);
 				matched = true;
 			}
 
