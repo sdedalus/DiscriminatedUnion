@@ -18,7 +18,7 @@
 		/// <summary>
 		/// The value
 		/// </summary>
-		internal readonly ITypedContainer value;
+		internal readonly ITypeContainer value;
 
 		/// <summary>
 		/// The matched
@@ -29,7 +29,7 @@
 		/// Initializes a new instance of the <see cref="MatchBase{TReturn}"/> class.
 		/// </summary>
 		/// <param name="value">The value.</param>
-		public MatchBase(ITypedContainer value)
+		public MatchBase(ITypeContainer value)
 		{
 			this.value = value;
 		}

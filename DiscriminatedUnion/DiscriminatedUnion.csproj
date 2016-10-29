@@ -44,14 +44,14 @@
     <Compile Include="IElse.cs" />
     <Compile Include="IMatchIng.cs" />
     <Compile Include="ITypedContainer.cs" />
-    <Compile Include="IWith`1.cs" />
-    <Compile Include="IWith`2.cs" />
-    <Compile Include="IWith`3.cs" />
-    <Compile Include="IWith`4.cs" />
-    <Compile Include="IWith`5.cs" />
-    <Compile Include="IWith`6.cs" />
-    <Compile Include="IWith`7.cs" />
-    <Compile Include="IWith`8.cs" />
+    <Compile Include="ICase`1.cs" />
+    <Compile Include="ICase`2.cs" />
+    <Compile Include="ICase`3.cs" />
+    <Compile Include="ICase`4.cs" />
+    <Compile Include="ICase`5.cs" />
+    <Compile Include="ICase`6.cs" />
+    <Compile Include="ICase`7.cs" />
+    <Compile Include="ICase`8.cs" />
     <Compile Include="MatchExtensions.cs" />
     <Compile Include="MatchBase.cs" />
     <Compile Include="Match`1.cs" />
@@ -75,7 +75,6 @@
     <Compile Include="Union`7.cs" />
     <Compile Include="Union`8.cs" />
     <Compile Include="Unit.cs" />
-    <Compile Include="WithExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

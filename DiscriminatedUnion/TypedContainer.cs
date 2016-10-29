@@ -6,9 +6,9 @@
 	/// Avoids Boxing at the cost of one time object creation;
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
-	/// <seealso cref="DiscriminatedUnion.ITypedContainer" />
-	/// <seealso cref="DiscriminatedUnion.IContainType{T}" />
-	public class TypedContainer<T> : ITypedContainer, IContainType<T>
+	/// <seealso cref="DiscriminatedUnion.ITypeContainer" />
+	/// <seealso cref="DiscriminatedUnion.IValueContainer{T}" />
+	public class TypedContainer<T> : ITypeContainer, IValueContainer<T>
 	{
 		/// <summary>
 		/// Gets the type of the contained.
@@ -36,9 +36,9 @@
 			this.ContainedValue = contained;
 		}
 
-		public IContainType<T1> ToContainedType<T1>()
+		public IValueContainer<T1> ToContainedType<T1>()
 		{
-			return this as IContainType<T1>;
+			return this as IValueContainer<T1>;
 		}
 	}
 }

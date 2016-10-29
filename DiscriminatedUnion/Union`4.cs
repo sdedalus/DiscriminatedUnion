@@ -15,7 +15,7 @@
 		/// <summary>
 		/// The value
 		/// </summary>
-		private readonly ITypedContainer Value;
+		private readonly ITypeContainer Value;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Union{T1, T2, T3, T4}"/> class.
@@ -106,6 +106,6 @@
 		/// </summary>
 		/// <typeparam name="TReturn">The type of the return.</typeparam>
 		/// <returns></returns>
-		public IWith<T1, T2, T3, T4, TReturn> Match<TReturn>() => new Match<T1, T2, T3, T4, TReturn>(Value);
+		public ICase<T1, T2, T3, T4, TReturn> Match<TReturn>() => new Match<T1, T2, T3, T4, TReturn>(Value);
 	}
 }

@@ -10,7 +10,7 @@
 	/// <seealso cref="DiscriminatedUnion.IUnion" />
 	public class Union<T1, T2> : IUnion
 	{
-		private readonly ITypedContainer Value;
+		private readonly ITypeContainer Value;
 
 		public Union(T1 value)
 		{
@@ -32,6 +32,6 @@
 			return new Union<T1, T2>(item);
 		}
 
-		public IWith<T1, T2, TReturn> Match<TReturn>() => new Match<T1, T2, TReturn>(Value);
+		public ICase<T1, T2, TReturn> Match<TReturn>() => new Match<T1, T2, TReturn>(Value);
 	}
 }

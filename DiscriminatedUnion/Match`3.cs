@@ -10,21 +10,29 @@
 	/// <typeparam name="T1">The type of the 1.</typeparam>
 	/// <typeparam name="TReturn">The type of the return.</typeparam>
 	/// <seealso cref="DiscriminatedUnion.MatchBase{TReturn}" />
-	/// <seealso cref="DiscriminatedUnion.IWith{T3, T2, T1, TReturn}" />
-	/// <seealso cref="DiscriminatedUnion.IWith{T2, T1, TReturn}" />
-	/// <seealso cref="DiscriminatedUnion.IWith{T1, TReturn}" />
+	/// <seealso cref="DiscriminatedUnion.ICase{T3, T2, T1, TReturn}" />
+	/// <seealso cref="DiscriminatedUnion.ICase{T2, T1, TReturn}" />
+	/// <seealso cref="DiscriminatedUnion.ICase{T1, TReturn}" />
 	public class Match<T3, T2, T1, TReturn> :
-		MatchBase<TReturn>,
-		IWith<T3, T2, T1, TReturn>,
-		IWith<T2, T1, TReturn>,
-		IWith<T1, TReturn>
+		Match<T2, T1, TReturn>,
+		ICase<T3, T2, T1, TReturn>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Match{T3, T2, T1, TReturn}"/> class.
 		/// </summary>
 		/// <param name="value">The value.</param>
-		public Match(ITypedContainer value) : base(value)
+		public Match(ITypeContainer value) : base(value)
 		{
+		}
+
+		ICase<T2, T1, TReturn> ICase<T3, T2, T1, TReturn>.Case(Func<T3, TReturn> func)
+		{
+			return ((IMatchIng<TReturn>)this).SetReturnIfMatch(func).Return(this);
+		}
+
+		ICase<T3, T2, T1, TReturn> ICase<T3, T2, T1, TReturn>.Case(Func<T3, bool> condition, Func<T3, TReturn> func)
+		{
+			return ((IMatchIng<TReturn>)this).SetReturnIfMatch(condition, func).Return(this);
 		}
 	}
 }

@@ -12,7 +12,7 @@
 		/// <summary>
 		/// The value stored in the union type.
 		/// </summary>
-		private readonly ITypedContainer Value;
+		private readonly ITypeContainer Value;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Union{T1}"/> class.
@@ -40,6 +40,6 @@
 		/// </summary>
 		/// <typeparam name="TReturn">The type of the return.</typeparam>
 		/// <returns></returns>
-		public IWith<T1, TReturn> Match<TReturn>() => new Match<T1, TReturn>(Value);
+		public ICase<T1, TReturn> Match<TReturn>() => new Match<T1, TReturn>(Value);
 	}
 }

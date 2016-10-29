@@ -1,6 +1,6 @@
 ﻿namespace DiscriminatedUnion
 {
-	public interface IContainType<T> : ITypedContainer
+	public interface IValueContainer<T> : ITypeContainer
 	{
 		T ContainedValue { get; }
 	}

@@ -13,27 +13,31 @@
 	/// <typeparam name="T1">The type of the 1.</typeparam>
 	/// <typeparam name="TReturn">The type of the return.</typeparam>
 	/// <seealso cref="DiscriminatedUnion.MatchBase{TReturn}" />
-	/// <seealso cref="DiscriminatedUnion.IWith{T6, T5, T4, T3, T2, T1, TReturn}" />
-	/// <seealso cref="DiscriminatedUnion.IWith{T5, T4, T3, T2, T1, TReturn}" />
-	/// <seealso cref="DiscriminatedUnion.IWith{T4, T3, T2, T1, TReturn}" />
-	/// <seealso cref="DiscriminatedUnion.IWith{T3, T2, T1, TReturn}" />
-	/// <seealso cref="DiscriminatedUnion.IWith{T2, T1, TReturn}" />
-	/// <seealso cref="DiscriminatedUnion.IWith{T1, TReturn}" />
-	public class Match<T6, T5, T4, T3, T2, T1, TReturn> :
-		MatchBase<TReturn>,
-		IWith<T6, T5, T4, T3, T2, T1, TReturn>,
-		IWith<T5, T4, T3, T2, T1, TReturn>,
-		IWith<T4, T3, T2, T1, TReturn>,
-		IWith<T3, T2, T1, TReturn>,
-		IWith<T2, T1, TReturn>,
-		IWith<T1, TReturn>
+	/// <seealso cref="DiscriminatedUnion.ICase{T6, T5, T4, T3, T2, T1, TReturn}" />
+	/// <seealso cref="DiscriminatedUnion.ICase{T5, T4, T3, T2, T1, TReturn}" />
+	/// <seealso cref="DiscriminatedUnion.ICase{T4, T3, T2, T1, TReturn}" />
+	/// <seealso cref="DiscriminatedUnion.ICase{T3, T2, T1, TReturn}" />
+	/// <seealso cref="DiscriminatedUnion.ICase{T2, T1, TReturn}" />
+	/// <seealso cref="DiscriminatedUnion.ICase{T1, TReturn}" />
+	public class Match<T6, T5, T4, T3, T2, T1, TReturn> : Match<T5, T4, T3, T2, T1, TReturn>,
+		ICase<T6, T5, T4, T3, T2, T1, TReturn>
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Match{T6, T5, T4, T3, T2, T1, TReturn}"/> class.
 		/// </summary>
 		/// <param name="value">The value.</param>
-		public Match(ITypedContainer value) : base(value)
+		public Match(ITypeContainer value) : base(value)
 		{
+		}
+
+		ICase<T5, T4, T3, T2, T1, TReturn> ICase<T6, T5, T4, T3, T2, T1, TReturn>.Case(Func<T6, TReturn> func)
+		{
+			return ((IMatchIng<TReturn>)this).SetReturnIfMatch(func).Return(this);
+		}
+
+		ICase<T6, T5, T4, T3, T2, T1, TReturn> ICase<T6, T5, T4, T3, T2, T1, TReturn>.Case(Func<T6, bool> condition, Func<T6, TReturn> func)
+		{
+			return ((IMatchIng<TReturn>)this).SetReturnIfMatch(condition, func).Return(this);
 		}
 	}
 }
