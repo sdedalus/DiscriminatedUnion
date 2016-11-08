@@ -12,16 +12,23 @@ namespace UnionAutoMap
 	/// <typeparam name="TTypeDest">The type of the type dest.</typeparam>
 	/// <typeparam name="TUnionDest">The type of the union dest.</typeparam>
 	/// <seealso cref="AutoMapper.ITypeConverter{TSource, TUnionDest}" />
-	public class ToUnionConverter<TSource, TTypeDest, TUnionDest> : ITypeConverter<TSource, TUnionDest> where TUnionDest : UnionBase
+	public class ToUnionConverter<TSource, TUnionDest> : ITypeConverter<TSource, TUnionDest>
+		where TUnionDest : UnionBase
 	{
 		public TUnionDest Convert(TSource source, TUnionDest destination, ResolutionContext context)
 		{
-			// ToDo: Find a way to avoid reflection here. It's roughly 100x slower than most other operations.
-			Type unionType = typeof(TUnionDest);
-			if (unionType.GenericTypeArguments.Contains(typeof(TTypeDest)))
+			Type destUnionType = typeof(TUnionDest);
+
+			var destArgs = destUnionType.GenericTypeArguments;
+
+			foreach (var arg in destArgs)
 			{
-				TTypeDest value = Mapper.Map<TTypeDest>(source);
-				return (TUnionDest)Activator.CreateInstance(unionType, value);
+				var typeMap = Mapper.Configuration.FindTypeMapFor(typeof(TSource), arg);
+				if (typeMap != null)
+				{
+					var tmpValue = Mapper.Map(source, typeof(TSource), arg);
+					return (TUnionDest)Mapper.Map(tmpValue, arg, destUnionType);
+				}
 			}
 
 			throw new InvalidCastException("Destination Union type must contain the Destination type.");

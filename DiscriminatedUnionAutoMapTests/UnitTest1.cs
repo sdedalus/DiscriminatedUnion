@@ -9,8 +9,7 @@ namespace DiscriminatedUnionAutoMapTests
 	[TestClass]
 	public class UnitTest1
 	{
-		[TestMethod]
-		public void MapLeftOneToUnionRightOneRightTwo()
+		public UnitTest1()
 		{
 			Mapper.Initialize(cfg =>
 			{
@@ -18,8 +17,15 @@ namespace DiscriminatedUnionAutoMapTests
 				cfg.CreateMap<LeftTwo, RightTwo>();
 				cfg.CreateMap<Union<LeftOne, LeftTwo>, RightOne>().ConvertUsing(new FromUnionConverter<LeftOne, LeftTwo, RightOne>());
 				cfg.CreateMap<Union<LeftOne, LeftTwo>, RightTwo>().ConvertUsing(new FromUnionConverter<LeftOne, LeftTwo, RightTwo>());
-				cfg.CreateMap<LeftOne, Union<RightOne, RightTwo>>().ConvertUsing(new ToUnionConverter<LeftOne, RightOne, Union<RightOne, RightTwo>>());
+				cfg.CreateMap<LeftOne, Union<RightOne, RightTwo>>().ConvertUsing(new ToUnionConverter<LeftOne, Union<RightOne, RightTwo>>());
+				cfg.CreateMap<LeftTwo, Union<RightOne, RightTwo>>().ConvertUsing(new ToUnionConverter<LeftTwo, Union<RightOne, RightTwo>>());
+				cfg.CreateMap<Union<LeftOne, LeftTwo>, Union<RightOne, RightTwo>>().ConvertUsing(new FromUnionToUnionConverter<Union<LeftOne, LeftTwo>, Union<RightOne, RightTwo>>());
 			});
+		}
+
+		[TestMethod]
+		public void MapLeftOneToUnionRightOneRightTwo()
+		{
 			LeftOne left = new LeftOne() { MyProperty = "test", MyProperty2 = "Test" };
 			var right = Mapper.Map<LeftOne, Union<RightOne, RightTwo>>(left);
 
@@ -34,16 +40,6 @@ namespace DiscriminatedUnionAutoMapTests
 		[TestMethod]
 		public void MapLeftTwoToUnionRightOneRightTwo()
 		{
-			Mapper.Initialize(cfg =>
-			{
-				cfg.CreateMap<LeftOne, RightOne>();
-				cfg.CreateMap<LeftTwo, RightTwo>();
-				cfg.CreateMap<Union<LeftOne, LeftTwo>, RightOne>().ConvertUsing(new FromUnionConverter<LeftOne, LeftTwo, RightOne>());
-				cfg.CreateMap<Union<LeftOne, LeftTwo>, RightTwo>().ConvertUsing(new FromUnionConverter<LeftOne, LeftTwo, RightTwo>());
-				cfg.CreateMap<LeftOne, Union<RightOne, RightTwo>>().ConvertUsing(new ToUnionConverter<LeftOne, RightOne, Union<RightOne, RightTwo>>());
-				cfg.CreateMap<LeftTwo, Union<RightOne, RightTwo>>().ConvertUsing(new ToUnionConverter<LeftTwo, RightTwo, Union<RightOne, RightTwo>>());
-			});
-
 			LeftTwo left = new LeftTwo() { MyProperty = 1, MyProperty2 = 1 };
 			var right = Mapper.Map<LeftTwo, Union<RightOne, RightTwo>>(left);
 
@@ -58,16 +54,6 @@ namespace DiscriminatedUnionAutoMapTests
 		[TestMethod]
 		public void MapLeftOneInUnionLeftOneLeftTwoToRightOne()
 		{
-			Mapper.Initialize(cfg =>
-			{
-				cfg.CreateMap<LeftOne, RightOne>();
-				cfg.CreateMap<LeftTwo, RightTwo>();
-				cfg.CreateMap<Union<LeftOne, LeftTwo>, RightOne>().ConvertUsing(new FromUnionConverter<LeftOne, LeftTwo, RightOne>());
-				cfg.CreateMap<Union<LeftOne, LeftTwo>, RightTwo>().ConvertUsing(new FromUnionConverter<LeftOne, LeftTwo, RightTwo>());
-				cfg.CreateMap<LeftOne, Union<RightOne, RightTwo>>().ConvertUsing(new ToUnionConverter<LeftOne, RightOne, Union<RightOne, RightTwo>>());
-				cfg.CreateMap<LeftTwo, Union<RightOne, RightTwo>>().ConvertUsing(new ToUnionConverter<LeftTwo, RightTwo, Union<RightOne, RightTwo>>());
-			});
-
 			Union<LeftOne, LeftTwo> left = new LeftOne() { MyProperty = "test", MyProperty2 = "Test" };
 			var right = Mapper.Map<Union<LeftOne, LeftTwo>, RightOne>(left);
 
@@ -79,16 +65,6 @@ namespace DiscriminatedUnionAutoMapTests
 		[TestMethod]
 		public void MapLeftTwoInUnionLeftOneLeftTwoToRightOne()
 		{
-			Mapper.Initialize(cfg =>
-			{
-				cfg.CreateMap<LeftOne, RightOne>();
-				cfg.CreateMap<LeftTwo, RightTwo>();
-				cfg.CreateMap<Union<LeftOne, LeftTwo>, RightOne>().ConvertUsing(new FromUnionConverter<LeftOne, LeftTwo, RightOne>());
-				cfg.CreateMap<Union<LeftOne, LeftTwo>, RightTwo>().ConvertUsing(new FromUnionConverter<LeftOne, LeftTwo, RightTwo>());
-				cfg.CreateMap<LeftOne, Union<RightOne, RightTwo>>().ConvertUsing(new ToUnionConverter<LeftOne, RightOne, Union<RightOne, RightTwo>>());
-				cfg.CreateMap<LeftTwo, Union<RightOne, RightTwo>>().ConvertUsing(new ToUnionConverter<LeftTwo, RightTwo, Union<RightOne, RightTwo>>());
-			});
-
 			Union<LeftOne, LeftTwo> left = new LeftTwo() { MyProperty = 1, MyProperty2 = 1 };
 			var right = Mapper.Map<Union<LeftOne, LeftTwo>, RightTwo>(left);
 
@@ -100,17 +76,6 @@ namespace DiscriminatedUnionAutoMapTests
 		[TestMethod]
 		public void MapLeftTwoInUnionLeftOneLeftTwoToUnionRightOneRightTwo()
 		{
-			Mapper.Initialize(cfg =>
-			{
-				cfg.CreateMap<LeftOne, RightOne>();
-				cfg.CreateMap<LeftTwo, RightTwo>();
-				cfg.CreateMap<Union<LeftOne, LeftTwo>, RightOne>().ConvertUsing(new FromUnionConverter<LeftOne, LeftTwo, RightOne>());
-				cfg.CreateMap<Union<LeftOne, LeftTwo>, RightTwo>().ConvertUsing(new FromUnionConverter<LeftOne, LeftTwo, RightTwo>());
-				cfg.CreateMap<LeftOne, Union<RightOne, RightTwo>>().ConvertUsing(new ToUnionConverter<LeftOne, RightOne, Union<RightOne, RightTwo>>());
-				cfg.CreateMap<LeftTwo, Union<RightOne, RightTwo>>().ConvertUsing(new ToUnionConverter<LeftTwo, RightTwo, Union<RightOne, RightTwo>>());
-				cfg.CreateMap<Union<LeftOne, LeftTwo>, Union<RightOne, RightTwo>>().ConvertUsing(new FromUnionToUnionConverter<Union<LeftOne, LeftTwo>, Union<RightOne, RightTwo>>());
-			});
-
 			Union<LeftOne, LeftTwo> left = new LeftTwo() { MyProperty = 1, MyProperty2 = 1 };
 			var right = Mapper.Map<Union<LeftOne, LeftTwo>, Union<RightOne, RightTwo>>(left);
 
@@ -125,17 +90,6 @@ namespace DiscriminatedUnionAutoMapTests
 		[TestMethod]
 		public void MapLeftOneInUnionLeftOneLeftTwoToUnionRightOneRightTwo()
 		{
-			Mapper.Initialize(cfg =>
-			{
-				cfg.CreateMap<LeftOne, RightOne>();
-				cfg.CreateMap<LeftTwo, RightTwo>();
-				cfg.CreateMap<Union<LeftOne, LeftTwo>, RightOne>().ConvertUsing(new FromUnionConverter<LeftOne, LeftTwo, RightOne>());
-				cfg.CreateMap<Union<LeftOne, LeftTwo>, RightTwo>().ConvertUsing(new FromUnionConverter<LeftOne, LeftTwo, RightTwo>());
-				cfg.CreateMap<LeftOne, Union<RightOne, RightTwo>>().ConvertUsing(new ToUnionConverter<LeftOne, RightOne, Union<RightOne, RightTwo>>());
-				cfg.CreateMap<LeftTwo, Union<RightOne, RightTwo>>().ConvertUsing(new ToUnionConverter<LeftTwo, RightTwo, Union<RightOne, RightTwo>>());
-				cfg.CreateMap<Union<LeftOne, LeftTwo>, Union<RightOne, RightTwo>>().ConvertUsing(new FromUnionToUnionConverter<Union<LeftOne, LeftTwo>, Union<RightOne, RightTwo>>());
-			});
-
 			Union<LeftOne, LeftTwo> left = new LeftOne() { MyProperty = "test", MyProperty2 = "Test" };
 			var right = Mapper.Map<Union<LeftOne, LeftTwo>, Union<RightOne, RightTwo>>(left);
 
