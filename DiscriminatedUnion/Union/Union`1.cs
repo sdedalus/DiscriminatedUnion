@@ -6,21 +6,19 @@
 	/// One Item Union.
 	/// </summary>
 	/// <typeparam name="T1">The type of the 1.</typeparam>
-	/// <seealso cref="DiscriminatedUnion.IUnion" />
-	public class Union<T1> : IUnion
+	/// <seealso cref="DiscriminatedUnion.UnionBase" />
+	public class Union<T1> : UnionBase
 	{
-		/// <summary>
-		/// The value stored in the union type.
-		/// </summary>
-		private readonly ITypeContainer Value;
+		protected Union(ITypeContainer value) : base(value)
+		{
+		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Union{T1}"/> class.
 		/// </summary>
 		/// <param name="value">The value.</param>
-		public Union(T1 value)
+		public Union(T1 value) : base(new TypedContainer<T1>(value))
 		{
-			this.Value = new TypedContainer<T1>(value);
 		}
 
 		/// <summary>
@@ -40,6 +38,6 @@
 		/// </summary>
 		/// <typeparam name="TReturn">The type of the return.</typeparam>
 		/// <returns></returns>
-		public ICase<T1, TReturn> Match<TReturn>() => new Match<T1, TReturn>(Value);
+		public ICase<T1, TReturn> Match<TReturn>() => new Match<T1, TReturn>(value);
 	}
 }

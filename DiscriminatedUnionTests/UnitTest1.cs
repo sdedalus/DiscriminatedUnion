@@ -19,12 +19,23 @@ namespace DistributedUnionTests
 				.Else(() => "It's None!"));
 		}
 
+		////[TestMethod]
+		////public void InheritedFunctionalityTestNone()
+		////{
+		////	var x = Option<String>.Some("Test");
+
+		////	Assert.AreEqual("It's Test!", x.Match<String>()
+		////		.Case(c => c == "Test", v => "It's Test!")
+		////		.Case(v => "It's Not Test!")
+		////		.Else(() => "It's None!"));
+		////}
+
 		[TestMethod]
 		public void InheritedFunctionalityTestNone()
 		{
-			var x = Option<String>.Some("Test");
+			Option<String> x = (string)null;
 
-			Assert.AreEqual("It's Test!", x.Match<String>()
+			Assert.AreEqual("It's None!", x.Match<String>()
 				.Case(c => c == "Test", v => "It's Test!")
 				.Case(v => "It's Not Test!")
 				.Else(() => "It's None!"));
@@ -128,7 +139,7 @@ namespace DistributedUnionTests
 		[TestMethod]
 		public void UnionTest8()
 		{
-			var x = UnionExtensions.ToErrorUnion<int, UnauthorizedAccessException>(() => AOrError(false));
+			var x = Union.ToErrorUnion<int, UnauthorizedAccessException>(() => AOrError(false));
 			string value = x
 				.Match<string>()
 				.Case(a => a.ToString())
@@ -270,6 +281,49 @@ namespace DistributedUnionTests
 				.Else(() => -1));
 		}
 
+		[TestMethod]
+		public void TestBaseToUnion()
+		{
+			// use this if you have an instance of one of a many sub classes and you want to handle each case differently.
+			TestTypeBase myBase = new ItemType7();
+
+			var union = Union.ToUnionOfSubTypes<TestTypeBase, ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6, ItemType7>(myBase);
+			Assert.AreEqual(7, union.Match<int>()
+				.Case(c => 1)
+				.Case(c => 2)
+				.Case(c => 3)
+				.Case(c => 4)
+				.Case(c => 5)
+				.Case(c => 6)
+				.Case(c => 7)
+				.Else(() => -1));
+		}
+
+		[TestMethod]
+		public void TestStateMAchine()
+		{
+			var progressState = Union
+				.CreateMatch<StateOne, StateTwo, StateThree, Union<StateOne, StateTwo, StateThree>>(c => c
+				.Case(v => new StateTwo())
+				.Case(v => new StateThree())
+				.Case(v => new StateOne())
+				.Else(() => null));
+
+			var one = new StateOne();
+
+			var two = progressState(one);
+
+			Assert.IsTrue(two.Is<StateTwo>());
+
+			var three = progressState(two);
+
+			Assert.IsTrue(three.Is<StateThree>());
+
+			var oneAgain = progressState(three);
+
+			Assert.IsTrue(oneAgain.Is<StateOne>());
+		}
+
 		public class TestTypeBase
 		{
 			public string Value { get; }
@@ -277,6 +331,27 @@ namespace DistributedUnionTests
 			public TestTypeBase(string value)
 			{
 				this.Value = value;
+			}
+		}
+
+		public class StateOne : TestTypeBase
+		{
+			public StateOne() : base("StateOne")
+			{
+			}
+		}
+
+		public class StateTwo : TestTypeBase
+		{
+			public StateTwo() : base("StateTwo")
+			{
+			}
+		}
+
+		public class StateThree : TestTypeBase
+		{
+			public StateThree() : base("StateThree")
+			{
 			}
 		}
 
@@ -345,17 +420,29 @@ namespace DistributedUnionTests
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
 		/// <seealso cref="DiscriminatedUnion.Union{T, DistributedUnionTests.UnitTest1.None}" />
-		public class Option<T> : Union<T, None>
+		public class Option<T> : Union<T>
 		{
 			public static Option<TSome> Some<TSome>(TSome value) => new Option<TSome>(value);
 
 			public static Option<TSome> None<TSome>() => new Option<TSome>();
 
-			private Option(T value) : base(value)
+			public Option(T value) : base(value)
 			{
 			}
 
-			private Option() : base(new None())
+			/// <summary>
+			/// Performs an implicit conversion from <see cref="T1" /> to <see cref="Union{T1}" />.
+			/// </summary>
+			/// <param name="item">The item.</param>
+			/// <returns>
+			/// The result of the conversion.
+			/// </returns>
+			public static implicit operator Option<T>(T item)
+			{
+				return item == null ? new Option<T>() : new Option<T>(item);
+			}
+
+			public Option() : base(new TypedContainer<None>(new None()))
 			{
 			}
 		}

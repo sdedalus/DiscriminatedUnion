@@ -40,5 +40,7 @@
 		{
 			return this as IValueContainer<T1>;
 		}
+
+		public object ValueAsObject => ContainedValue;
 	}
 }

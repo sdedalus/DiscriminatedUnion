@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0B741851-0979-4333-BA94-49F3F6086C9A}</ProjectGuid>
+    <ProjectGuid>{C0BA2DCC-A6BE-437C-ACAF-3E35587A6DB3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DiscriminatedUnionTests</RootNamespace>
-    <AssemblyName>DiscriminatedUnionTests</AssemblyName>
+    <RootNamespace>DiscriminatedUnionAutoMapTests</RootNamespace>
+    <AssemblyName>DiscriminatedUnionAutoMapTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -54,21 +54,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTest1.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DiscriminatedUnionAutoMap\DiscriminatedUnionAutoMap.csproj">
-      <Project>{02ff4951-7724-450a-a34e-ce81e180326d}</Project>
-      <Name>DiscriminatedUnionAutoMap</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DiscriminatedUnion\DiscriminatedUnion.csproj">
-      <Project>{1777abbd-3579-4b99-b2e2-24ed3e834f84}</Project>
-      <Name>DiscriminatedUnion</Name>
-    </ProjectReference>
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DiscriminatedUnionAutoMap\DiscriminatedUnionAutoMap.csproj">
+      <Project>{02FF4951-7724-450A-A34E-CE81E180326D}</Project>
+      <Name>DiscriminatedUnionAutoMap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DiscriminatedUnion\DiscriminatedUnion.csproj">
+      <Project>{1777ABBD-3579-4B99-B2E2-24ED3E834F84}</Project>
+      <Name>DiscriminatedUnion</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

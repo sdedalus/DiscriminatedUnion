@@ -16,5 +16,14 @@ namespace DiscriminatedUnion
 		Type ContainedValueType { get; }
 
 		IValueContainer<T> ToContainedType<T>();
+
+		/// <summary>
+		/// Gets the value as object.
+		/// [Warning] May trigger boxing conditions.  use sparingly.
+		/// </summary>
+		/// <value>
+		/// The value as object.
+		/// </value>
+		object ValueAsObject { get; }
 	}
 }

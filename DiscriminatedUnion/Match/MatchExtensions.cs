@@ -97,5 +97,14 @@ namespace DiscriminatedUnion
 		/// <returns></returns>
 		public static ICase<char, TReturn> Match<TReturn>(this char value) =>
 			Match<char, TReturn>(value);
+
+		/// <summary>
+		/// Creates the match.
+		/// </summary>
+		/// <typeparam name="T1">The type of the 1.</typeparam>
+		/// <typeparam name="TReturn">The type of the return.</typeparam>
+		/// <param name="match">The match.</param>
+		/// <returns>a Func that maps from T1 to TReturn</returns>
+		public static Func<T1, TReturn> CreateMatch<T1, TReturn>(Func<ICase<T1, TReturn>, TReturn> match) => Item => match(Match<T1, TReturn>(Item));
 	}
 }
