@@ -9,7 +9,7 @@
 	/// <seealso cref="DiscriminatedUnion.UnionBase" />
 	public class Union<T1> : UnionBase
 	{
-		protected Union(ITypeContainer value) : base(value)
+		public Union(ITypeContainer value) : base(value)
 		{
 		}
 

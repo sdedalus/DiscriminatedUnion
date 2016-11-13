@@ -13,6 +13,10 @@
 	/// <seealso cref="DiscriminatedUnion.UnionBase" />
 	public class Union<T1, T2, T3, T4, T5> : UnionBase
 	{
+		public Union(ITypeContainer value) : base(value)
+		{
+		}
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Union{T1, T2, T3, T4, T5}"/> class.
 		/// </summary>

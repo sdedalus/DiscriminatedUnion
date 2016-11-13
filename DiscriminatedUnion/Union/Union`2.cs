@@ -10,6 +10,10 @@
 	/// <seealso cref="DiscriminatedUnion.UnionBase" />
 	public class Union<T1, T2> : UnionBase
 	{
+		public Union(ITypeContainer value) : base(value)
+		{
+		}
+
 		public Union(T1 value) : base(new TypedContainer<T1>(value))
 		{
 		}

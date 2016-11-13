@@ -19,16 +19,13 @@ namespace DistributedUnionTests
 				.Else(() => "It's None!"));
 		}
 
-		////[TestMethod]
-		////public void InheritedFunctionalityTestNone()
-		////{
-		////	var x = Option<String>.Some("Test");
+		[TestMethod]
+		public void TypedContainerTest()
+		{
+			ITypeContainer x = new TypedContainer<string>("Testing");
 
-		////	Assert.AreEqual("It's Test!", x.Match<String>()
-		////		.Case(c => c == "Test", v => "It's Test!")
-		////		.Case(v => "It's Not Test!")
-		////		.Else(() => "It's None!"));
-		////}
+			var y = x.ToContainedType<object>();
+		}
 
 		[TestMethod]
 		public void InheritedFunctionalityTestNone()
