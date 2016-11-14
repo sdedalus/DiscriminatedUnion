@@ -1,7 +1,5 @@
 ﻿namespace DiscriminatedUnion
 {
-	using System;
-
 	/// <summary>
 	/// Five Item Union.
 	/// </summary>

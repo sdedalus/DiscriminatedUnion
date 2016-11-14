@@ -15,6 +15,11 @@ namespace DiscriminatedUnion
 		/// </value>
 		Type ContainedValueType { get; }
 
+		/// <summary>
+		/// To the type of the contained.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <returns></returns>
 		IValueContainer<T> ToContainedType<T>();
 
 		/// <summary>

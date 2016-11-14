@@ -3,17 +3,25 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiscriminatedUnionJsonConverter
 {
+	/// <summary>
+	/// Converts to and from Union and JSON strings.
+	/// </summary>
+	/// <typeparam name="TDestination">The type of the destination.</typeparam>
+	/// <seealso cref="Newtonsoft.Json.JsonConverter" />
 	public class UnionJsonConverter<TDestination> : JsonConverter
 		where TDestination : UnionBase
 	{
+		/// <summary>
+		/// Writes the JSON representation of the object.
+		/// </summary>
+		/// <param name="writer">The <see cref="T:Newtonsoft.Json.JsonWriter" /> to write to.</param>
+		/// <param name="value">The value.</param>
+		/// <param name="serializer">The calling serializer.</param>
 		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 		{
 			var union = value as UnionBase;
@@ -23,6 +31,16 @@ namespace DiscriminatedUnionJsonConverter
 			serializer.Serialize(writer, union.ValueContainer.ValueAsObject, union.ValueContainer.ContainedValueType);
 		}
 
+		/// <summary>
+		/// Reads the JSON representation of the object.
+		/// </summary>
+		/// <param name="reader">The <see cref="T:Newtonsoft.Json.JsonReader" /> to read from.</param>
+		/// <param name="objectType">Type of the object.</param>
+		/// <param name="existingValue">The existing value of object being read.</param>
+		/// <param name="serializer">The calling serializer.</param>
+		/// <returns>
+		/// The object value.
+		/// </returns>
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
 		{
 			var destArgs = objectType.GenericTypeArguments;
@@ -39,6 +57,12 @@ namespace DiscriminatedUnionJsonConverter
 			return Create(bestMatch.Type, contained);
 		}
 
+		/// <summary>
+		/// Creates the specified contained type.
+		/// </summary>
+		/// <param name="containedType">Type of the contained.</param>
+		/// <param name="contained">The contained.</param>
+		/// <returns></returns>
 		private TDestination Create(Type containedType, object contained)
 		{
 			Type classType = typeof(TypedContainer<>);
@@ -50,6 +74,12 @@ namespace DiscriminatedUnionJsonConverter
 			return (TDestination)Activator.CreateInstance(typeof(TDestination), container);
 		}
 
+		/// <summary>
+		/// Scores the Ducks.
+		/// </summary>
+		/// <param name="props">The props.</param>
+		/// <param name="jObj">The j object.</param>
+		/// <returns></returns>
 		private int DuckScore(PropertyInfo[] props, JObject jObj)
 		{
 			var nameScore = props.Select(prop => jObj[prop.Name] != null ? 10 : 0).Aggregate((v, a) => v + a);
@@ -59,6 +89,11 @@ namespace DiscriminatedUnionJsonConverter
 			return nameScore + typeScore;
 		}
 
+		/// <summary>
+		/// To the type of the j token.
+		/// </summary>
+		/// <param name="aType">a type.</param>
+		/// <returns></returns>
 		public JTokenType ToJTokenType(Type aType)
 		{
 			if (aType == typeof(bool))
@@ -109,6 +144,13 @@ namespace DiscriminatedUnionJsonConverter
 			return JTokenType.Object;
 		}
 
+		/// <summary>
+		/// Determines whether this instance can convert the specified object type.
+		/// </summary>
+		/// <param name="objectType">Type of the object.</param>
+		/// <returns>
+		/// <c>true</c> if this instance can convert the specified object type; otherwise, <c>false</c>.
+		/// </returns>
 		public override bool CanConvert(Type objectType)
 		{
 			return typeof(UnionBase).IsAssignableFrom(objectType);

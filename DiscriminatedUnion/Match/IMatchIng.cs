@@ -12,11 +12,4 @@
 
 		Unit SetReturnIfMatch<T>(Func<T, bool> condition, Func<T, TReturn> func);
 	}
-
-	//public interface IMatchIng<T, TReturn>
-	//{
-	//	Unit SetReturnIfMatch(Func<T, TReturn> func);
-
-	//	Unit SetReturnIfMatch(Func<T, bool> condition, Func<T, TReturn> func);
-	//}
 }

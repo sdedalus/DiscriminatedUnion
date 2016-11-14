@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DiscriminatedUnion;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using UnionAutoMap;
 
 namespace DiscriminatedUnionAutoMapTests

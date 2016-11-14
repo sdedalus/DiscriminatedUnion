@@ -2,7 +2,6 @@
 using DiscriminatedUnionJsonConverter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using System;
 
 namespace DiscriminatedUnionJsonConverterTest
 {
@@ -21,15 +20,47 @@ namespace DiscriminatedUnionJsonConverterTest
 		}
 	}
 
+	/// <summary>
+	/// Test object 1.
+	/// </summary>
 	public class One
 	{
+		/// <summary>
+		/// Gets or sets my property.
+		/// </summary>
+		/// <value>
+		/// My property.
+		/// </value>
 		public string MyProperty { get; set; }
+
+		/// <summary>
+		/// Gets or sets my property2.
+		/// </summary>
+		/// <value>
+		/// My property2.
+		/// </value>
 		public string MyProperty2 { get; set; }
 	}
 
+	/// <summary>
+	/// Test object 2.
+	/// </summary>
 	public class Two
 	{
+		/// <summary>
+		/// Gets or sets my property.
+		/// </summary>
+		/// <value>
+		/// My property.
+		/// </value>
 		public int MyProperty { get; set; }
+
+		/// <summary>
+		/// Gets or sets my property2.
+		/// </summary>
+		/// <value>
+		/// My property2.
+		/// </value>
 		public int MyProperty2 { get; set; }
 	}
 }

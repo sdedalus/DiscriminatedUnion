@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using DiscriminatedUnion;
 using System;
-using System.Linq;
 
 namespace UnionAutoMap
 {
@@ -15,6 +14,16 @@ namespace UnionAutoMap
 	public class ToUnionConverter<TSource, TUnionDest> : ITypeConverter<TSource, TUnionDest>
 		where TUnionDest : UnionBase
 	{
+		/// <summary>
+		/// Performs conversion from source to destination type
+		/// </summary>
+		/// <param name="source">Source object</param>
+		/// <param name="destination">Destination object</param>
+		/// <param name="context">Resolution context</param>
+		/// <returns>
+		/// Destination object
+		/// </returns>
+		/// <exception cref="System.InvalidCastException">Destination Union type must contain the Destination type.</exception>
 		public TUnionDest Convert(TSource source, TUnionDest destination, ResolutionContext context)
 		{
 			Type destUnionType = typeof(TUnionDest);

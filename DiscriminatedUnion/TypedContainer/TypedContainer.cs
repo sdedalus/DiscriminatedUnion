@@ -36,11 +36,23 @@
 			this.ContainedValue = contained;
 		}
 
+		/// <summary>
+		/// To the type of the contained.
+		/// </summary>
+		/// <typeparam name="T1">The type of the 1.</typeparam>
+		/// <returns></returns>
 		public IValueContainer<T1> ToContainedType<T1>()
 		{
 			return this as IValueContainer<T1>;
 		}
 
+		/// <summary>
+		/// Gets the value as object.
+		/// [Warning] May trigger boxing conditions.  use sparingly.
+		/// </summary>
+		/// <value>
+		/// The value as object.
+		/// </value>
 		public object ValueAsObject => ContainedValue;
 	}
 }

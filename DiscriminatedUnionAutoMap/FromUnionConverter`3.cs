@@ -1,15 +1,27 @@
 ﻿using AutoMapper;
 using DiscriminatedUnion;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UnionAutoMap
 {
+	/// <summary>
+	/// Performs conversion from source to destination type
+	/// </summary>
+	/// <typeparam name="T1">The type of the 1.</typeparam>
+	/// <typeparam name="T2">The type of the 2.</typeparam>
+	/// <typeparam name="T3">The type of the 3.</typeparam>
+	/// <typeparam name="TDestination">The type of the destination.</typeparam>
+	/// <seealso cref="AutoMapper.ITypeConverter{DiscriminatedUnion.Union{T1, T2, T3}, TDestination}" />
 	public class FromUnionConverter<T1, T2, T3, TDestination> : ITypeConverter<Union<T1, T2, T3>, TDestination>
 	{
+		/// <summary>
+		/// Performs conversion from source to destination type
+		/// </summary>
+		/// <param name="source">Source object</param>
+		/// <param name="destination">Destination object</param>
+		/// <param name="context">Resolution context</param>
+		/// <returns>
+		/// Destination object
+		/// </returns>
 		public TDestination Convert(Union<T1, T2, T3> source, TDestination destination, ResolutionContext context)
 		{
 			return source.Match<TDestination>()
