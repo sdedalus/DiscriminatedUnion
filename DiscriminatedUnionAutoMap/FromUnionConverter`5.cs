@@ -32,7 +32,7 @@ namespace UnionAutoMap
 				.Case(v => Mapper.Map<TDestination>(v))
 				.Case(v => Mapper.Map<TDestination>(v))
 				.Case(v => Mapper.Map<TDestination>(v))
-				.Else(() => default(TDestination));
+				.Default(() => default(TDestination));
 		}
 	}
 }

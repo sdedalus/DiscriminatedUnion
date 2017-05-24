@@ -8,7 +8,7 @@ namespace DiscriminatedUnion
 	/// <typeparam name="T1">The type of the 1.</typeparam>
 	/// <typeparam name="T2">The type of the 2.</typeparam>
 	/// <typeparam name="TReturn">The type of the return.</typeparam>
-	public interface ICase<T2, T1, TReturn> : IElse<TReturn>
+	public interface ICase<T2, T1, TReturn> : IDefault<TReturn>
 	{
 		/// <summary>
 		/// Cases the specified function.

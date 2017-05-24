@@ -7,14 +7,14 @@ namespace DiscriminatedUnion
 	/// </summary>
 	/// <typeparam name="T1">Type one.</typeparam>
 	/// <typeparam name="TReturn">The type of the return.</typeparam>
-	public interface ICase<T1, TReturn> : IElse<TReturn>
+	public interface ICase<T1, TReturn> : IDefault<TReturn>
 	{
 		/// <summary>
 		/// Cases the specified function.
 		/// </summary>
 		/// <param name="func">The function.</param>
 		/// <returns></returns>
-		IElse<TReturn> Case(Func<T1, TReturn> func);
+		IDefault<TReturn> Case(Func<T1, TReturn> func);
 
 		/// <summary>
 		/// Cases the specified condition.

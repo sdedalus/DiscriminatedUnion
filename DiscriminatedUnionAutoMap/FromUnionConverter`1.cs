@@ -23,7 +23,7 @@ namespace UnionAutoMap
 		public TDestination Convert(Union<T1> source, TDestination destination, ResolutionContext context)
 		{
 			return source.Match<TDestination>()
-				.Case(v => Mapper.Map<TDestination>(v)).Else(() => default(TDestination));
+				.Case(v => Mapper.Map<TDestination>(v)).Default(() => default(TDestination));
 		}
 	}
 }

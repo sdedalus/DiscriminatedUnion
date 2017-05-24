@@ -26,7 +26,7 @@ namespace UnionAutoMap
 			return source.Match<TDestination>()
 				.Case(v => Mapper.Map<TDestination>(v))
 				.Case(v => Mapper.Map<TDestination>(v))
-				.Else(() => default(TDestination));
+				.Default(() => default(TDestination));
 		}
 	}
 }

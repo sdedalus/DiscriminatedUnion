@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DiscriminatedUnion</RootNamespace>
     <AssemblyName>DiscriminatedUnion</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,10 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TypedContainer\IContainType.cs" />
-    <Compile Include="Case\IElse.cs" />
+    <Compile Include="Discriminator\Discriminator.cs" />
+    <Compile Include="Discriminator\TagBase.cs" />
+    <Compile Include="Discriminator\Tag.cs" />
+    <Compile Include="Option\Option.cs" />
+    <Compile Include="TypedContainer\IValueContainer.cs" />
+    <Compile Include="Case\IDefault.cs" />
     <Compile Include="Match\IMatchIng.cs" />
-    <Compile Include="TypedContainer\ITypedContainer.cs" />
+    <Compile Include="TypedContainer\ITypeContainer.cs" />
     <Compile Include="Case\ICase`1.cs" />
     <Compile Include="Case\ICase`2.cs" />
     <Compile Include="Case\ICase`3.cs" />

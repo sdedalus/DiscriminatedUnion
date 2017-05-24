@@ -2,9 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections;
 using System.Linq;
-using System.Reflection;
 
 namespace DiscriminatedUnionJsonConverter
 {
@@ -13,7 +11,7 @@ namespace DiscriminatedUnionJsonConverter
 	/// </summary>
 	/// <typeparam name="TDestination">The type of the destination.</typeparam>
 	/// <seealso cref="Newtonsoft.Json.JsonConverter" />
-	public class UnionJsonConverter<TDestination> : JsonConverter
+	public class UnionJsonConverterKeyed<TDestination> : JsonConverter
 		where TDestination : UnionBase
 	{
 		/// <summary>
@@ -26,9 +24,18 @@ namespace DiscriminatedUnionJsonConverter
 		{
 			var union = value as UnionBase;
 
-			Type destUnionType = union.GetType();
+			Type destUnionType = typeof(TDestination);
 
-			serializer.Serialize(writer, union.ValueContainer.ValueAsObject, union.ValueContainer.ContainedValueType);
+			var KeyIndex = destUnionType
+				.GenericTypeArguments
+				.Select((ty, i) => new { type = ty, index = i })
+				.First(v => v.type == union.ValueContainer.ContainedValueType);
+
+			JToken t = JToken.FromObject(union.ValueContainer.ValueAsObject);
+
+			JObject o = (JObject)t;
+			o.AddFirst(new JProperty("_typeKey", KeyIndex.index));
+			o.WriteTo(writer);
 		}
 
 		/// <summary>
@@ -43,18 +50,15 @@ namespace DiscriminatedUnionJsonConverter
 		/// </returns>
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
 		{
-			var destArgs = objectType.GenericTypeArguments;
+			var destArgs = objectType.GenericTypeArguments.Select((ty, i) => new { type = ty, index = i });
 
 			JObject value = serializer.Deserialize<JObject>(reader);
 
-			var duck = destArgs.Select(arg => new { Type = arg, score = DuckScore(arg.GetProperties(), value) }).ToList();
-			var maxScore = duck.Max(c => c.score);
+			var innerType = destArgs.First(c => c.index == value["_typeKey"].Value<int>());
 
-			var bestMatch = duck.First(c => c.score == maxScore);
+			var contained = value.ToObject(innerType.type);
 
-			var contained = value.ToObject(bestMatch.Type);
-
-			return Create(bestMatch.Type, contained);
+			return Create(innerType.type, contained);
 		}
 
 		/// <summary>
@@ -72,76 +76,6 @@ namespace DiscriminatedUnionJsonConverter
 			ITypeContainer container = (ITypeContainer)Activator.CreateInstance(constructedType, contained);
 
 			return (TDestination)Activator.CreateInstance(typeof(TDestination), container);
-		}
-
-		/// <summary>
-		/// Scores the Ducks.
-		/// </summary>
-		/// <param name="props">The props.</param>
-		/// <param name="jObj">The j object.</param>
-		/// <returns></returns>
-		private int DuckScore(PropertyInfo[] props, JObject jObj)
-		{
-			var nameScore = props.Select(prop => jObj[prop.Name] != null ? 10 : 0).Aggregate((v, a) => v + a);
-
-			var typeScore = props.Select(prop => jObj[prop.Name].Type == ToJTokenType(prop.PropertyType) ? 1 : 0).Aggregate((v, a) => v + a);
-
-			return nameScore + typeScore;
-		}
-
-		/// <summary>
-		/// To the type of the j token.
-		/// </summary>
-		/// <param name="aType">a type.</param>
-		/// <returns></returns>
-		public JTokenType ToJTokenType(Type aType)
-		{
-			if (aType == typeof(bool))
-			{
-				return JTokenType.Boolean;
-			}
-
-			if (aType == typeof(DateTime))
-			{
-				return JTokenType.Date;
-			}
-
-			if (aType == typeof(float))
-			{
-				return JTokenType.Float;
-			}
-
-			if (aType == typeof(Guid))
-			{
-				return JTokenType.Guid;
-			}
-
-			if (aType == typeof(int))
-			{
-				return JTokenType.Integer;
-			}
-
-			if (aType == typeof(string))
-			{
-				return JTokenType.String;
-			}
-
-			if (aType == typeof(TimeSpan))
-			{
-				return JTokenType.TimeSpan;
-			}
-
-			if (aType == typeof(Uri))
-			{
-				return JTokenType.Uri;
-			}
-
-			if (aType.IsArray || typeof(IEnumerable).IsAssignableFrom(aType))
-			{
-				return JTokenType.Array;
-			}
-
-			return JTokenType.Object;
 		}
 
 		/// <summary>

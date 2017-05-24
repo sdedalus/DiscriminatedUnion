@@ -7,8 +7,8 @@
 	/// </summary>
 	/// <typeparam name="TReturn">The type of the return.</typeparam>
 	/// <seealso cref="DiscriminatedUnion.IMatchIng{TReturn}" />
-	/// <seealso cref="DiscriminatedUnion.IElse{TReturn}" />
-	public class MatchBase<TReturn> : IMatchIng<TReturn>, IElse<TReturn>
+	/// <seealso cref="IDefault{TReturn}" />
+	public class MatchBase<TReturn> : IMatchIng<TReturn>, IDefault<TReturn>
 	{
 		/// <summary>
 		/// The return value
@@ -35,11 +35,11 @@
 		}
 
 		/// <summary>
-		/// This Matches Everything Else
+		/// This Matches Everything Default
 		/// </summary>
 		/// <param name="func">The function.</param>
 		/// <returns></returns>
-		TReturn IElse<TReturn>.Else(Func<TReturn> func)
+		TReturn IDefault<TReturn>.Default(Func<TReturn> func)
 		{
 			return matched ? returnValue : func();
 		}

@@ -38,6 +38,15 @@ namespace DiscriminatedUnion
 		/// </returns>
 		public bool Is<T>() => typeof(T) == value.ContainedValueType;
 
+		public bool Is<T>(out T ret)
+		{
+			var isType = typeof(T) == value.ContainedValueType;
+			
+			ret = isType ? ((IValueContainer<T>) value).ContainedValue : default(T);
+			return isType;
+
+		}
+
 		/// <summary>
 		/// Determines whether [is] [the specified proposed type].
 		/// </summary>

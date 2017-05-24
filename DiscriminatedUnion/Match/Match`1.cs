@@ -26,7 +26,7 @@
 		/// </summary>
 		/// <param name="func">The function.</param>
 		/// <returns></returns>
-		IElse<TReturn> ICase<T1, TReturn>.Case(Func<T1, TReturn> func)
+		IDefault<TReturn> ICase<T1, TReturn>.Case(Func<T1, TReturn> func)
 		{
 			return ((IMatchIng<TReturn>)this).SetReturnIfMatch(func).Return(this);
 		}

@@ -6,9 +6,9 @@ using UnionAutoMap;
 namespace DiscriminatedUnionAutoMapTests
 {
 	[TestClass]
-	public class UnitTest1
+	public class UnionAutoMap
 	{
-		public UnitTest1()
+		public UnionAutoMap()
 		{
 			Mapper.Initialize(cfg =>
 			{
@@ -33,7 +33,7 @@ namespace DiscriminatedUnionAutoMapTests
 			Assert.AreEqual("testTest", right.Match<string>()
 				.Case(v => v.MyProperty + v.MyProperty2)
 				.Case(v => v.MyProperty.ToString() + v.MyProperty2.ToString())
-				.Else(() => ""));
+				.Default(() => ""));
 		}
 
 		[TestMethod]
@@ -47,7 +47,7 @@ namespace DiscriminatedUnionAutoMapTests
 			Assert.AreEqual(2, right.Match<int>()
 				.Case(v => -1)
 				.Case(v => v.MyProperty + v.MyProperty2)
-				.Else(() => -1));
+				.Default(() => -1));
 		}
 
 		[TestMethod]
@@ -83,7 +83,7 @@ namespace DiscriminatedUnionAutoMapTests
 			Assert.AreEqual(2, right.Match<int>()
 				.Case(v => -1)
 				.Case(v => v.MyProperty + v.MyProperty2)
-				.Else(() => -1));
+				.Default(() => -1));
 		}
 
 		[TestMethod]
@@ -97,7 +97,7 @@ namespace DiscriminatedUnionAutoMapTests
 			Assert.AreEqual("testTest", right.Match<string>()
 				.Case(v => v.MyProperty + v.MyProperty2)
 				.Case(v => v.MyProperty.ToString() + v.MyProperty2.ToString())
-				.Else(() => ""));
+				.Default(() => ""));
 		}
 	}
 

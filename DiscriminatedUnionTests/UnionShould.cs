@@ -1,12 +1,12 @@
-﻿using DiscriminatedUnion;
-
+﻿using System;
+using DiscriminatedUnion;
+using DiscriminatedUnion.Option;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
-namespace DistributedUnionTests
+namespace DiscriminatedUnionTests
 {
 	[TestClass]
-	public class UnitTest1
+	public class UnionShould
 	{
 		[TestMethod]
 		public void InheritedFunctionalityTest()
@@ -16,7 +16,7 @@ namespace DistributedUnionTests
 			Assert.AreEqual("It's Test!", x.Match<String>()
 				.Case(c => c == "Test", v => "It's Test!")
 				.Case(v => "It's Not Test!")
-				.Else(() => "It's None!"));
+				.Default(() => "It's None!"));
 		}
 
 		[TestMethod]
@@ -30,12 +30,13 @@ namespace DistributedUnionTests
 		[TestMethod]
 		public void InheritedFunctionalityTestNone()
 		{
-			Option<String> x = (string)null;
+			string value = null;
+			Option<String> x = value;
 
 			Assert.AreEqual("It's None!", x.Match<String>()
 				.Case(c => c == "Test", v => "It's Test!")
 				.Case(v => "It's Not Test!")
-				.Else(() => "It's None!"));
+				.Default(() => "It's None!"));
 		}
 
 		[TestMethod]
@@ -46,8 +47,25 @@ namespace DistributedUnionTests
 			string value = x.Match<string>()
 				.Case(a => a)
 				.Case(b => b.ToString())
-				.Else(() => "Nothing");
+				.Default(() => "Nothing");
 
+			Assert.AreEqual("Test", value);
+		}
+
+		[TestMethod]
+		public void UnionTestModern()
+		{
+			Union<string, int> x = "Test";
+			string value = "";
+			switch (x)
+			{
+				case var a when a.Is<string>(out var s):
+					value = s;
+					break;
+				case var a when a.Is<int>(out var i):
+					value = i.ToString();
+					break;
+			}
 			Assert.AreEqual("Test", value);
 		}
 
@@ -57,7 +75,7 @@ namespace DistributedUnionTests
 			Union<string, int> x = 10;
 
 			string value = x.Match<string>()
-				.Else(() => "Nothing");
+				.Default(() => "Nothing");
 
 			Assert.AreEqual("Nothing", value);
 		}
@@ -70,7 +88,7 @@ namespace DistributedUnionTests
 			string value = x.Match<string>()
 				.Case(a => a)
 				.Case(b => b.ToString())
-				.Else(() => "Nothing");
+				.Default(() => "Nothing");
 
 			Assert.AreEqual("100", value);
 		}
@@ -84,7 +102,7 @@ namespace DistributedUnionTests
 				.Case(v => v)
 				.Case(c => c == 100, v => "Keeping It 100.")
 				.Case(v => "Tea?")
-				.Else(() => "Nothing");
+				.Default(() => "Nothing");
 
 			Assert.AreEqual("Keeping It 100.", value);
 		}
@@ -101,9 +119,9 @@ namespace DistributedUnionTests
 						.Case(b => "Not This")
 						.Case(c => c.Match<string>()
 						   .Case(d => d) // this is the match
-						   .Else(() => "Not This"))
-						.Else(() => "Not This"))
-				.Else(() => "Not This");
+						   .Default(() => "Not This"))
+						.Default(() => "Not This"))
+				.Default(() => "Not This");
 
 			Assert.AreEqual("Test", value);
 		}
@@ -116,7 +134,7 @@ namespace DistributedUnionTests
 				.Case(v => v)
 				.Case(c => c == 100, v => "Keeping It 100.")
 				.Case(v => "Tea?")
-				.Else(() => "Nothing");
+				.Default(() => "Nothing");
 
 			Assert.AreEqual("Keeping It 100.", value);
 		}
@@ -128,7 +146,7 @@ namespace DistributedUnionTests
 				.Match<string>()
 				.Case(a => a)
 				.Case(b => b == 100 ? "Keeping It 100." : "Tea?")
-				.Else(() => "Nothing");
+				.Default(() => "Nothing");
 
 			Assert.AreEqual("test", value);
 		}
@@ -141,7 +159,7 @@ namespace DistributedUnionTests
 				.Match<string>()
 				.Case(a => a.ToString())
 				.Case(b => "test")
-				.Else(() => "Nothing");
+				.Default(() => "Nothing");
 
 			Assert.AreEqual("test", value);
 		}
@@ -176,10 +194,10 @@ namespace DistributedUnionTests
 			Union<ItemType1, ItemType2, ItemType3> x = new ItemType3();
 
 			Assert.AreEqual("value3", x.Match<string>()
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Else(() => "Nothing"));
+				.Case(item => (string)item)
+				.Case(item => item)
+				.Case(item => item)
+				.Default(() => "Nothing"));
 		}
 
 		[TestMethod]
@@ -188,25 +206,25 @@ namespace DistributedUnionTests
 			Union<ItemType1, ItemType2, ItemType3, ItemType4> x = new ItemType4();
 
 			Assert.AreEqual("value4", x.Match<string>()
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Else(() => "Nothing"));
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Default(() => "Nothing"));
 		}
 
 		[TestMethod]
 		public void UnionTest5_1()
 		{
-			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5> x = new ItemType5();
+			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5> x = Discriminator.Tag<ItemType5>("value15");
 
-			Assert.AreEqual("value5", x.Match<string>()
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Else(() => "Nothing"));
+			Assert.AreEqual("value15", x.Match<string>()
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Default(() => "Nothing"));
 		}
 
 		[TestMethod]
@@ -215,29 +233,29 @@ namespace DistributedUnionTests
 			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6> x = new ItemType6();
 
 			Assert.AreEqual("value6", x.Match<string>()
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Else(() => "Nothing"));
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Default(() => "Nothing"));
 		}
 
 		[TestMethod]
 		public void UnionTest7_1()
 		{
-			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6, ItemType7> x = new ItemType7();
+			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6, ItemType7> x = Discriminator.Tag<ItemType7>("value7");
 
 			Assert.AreEqual("value7", x.Match<string>()
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Else(() => "Nothing"));
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Default(() => "Nothing"));
 		}
 
 		[TestMethod]
@@ -246,15 +264,15 @@ namespace DistributedUnionTests
 			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6, ItemType7, ItemType8> x = new ItemType8();
 
 			Assert.AreEqual("value8", x.Match<string>()
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Case(item => item.Value)
-				.Else(() => "Nothing"));
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Case(item => item)
+				.Default(() => "Nothing"));
 		}
 
 		[TestMethod]
@@ -265,7 +283,7 @@ namespace DistributedUnionTests
 			Assert.AreEqual(100, testValue.Match<int>()
 				.Case(t => t == "Testing", v => 100)
 				.Case(v => 0)
-				.Else(() => -1));
+				.Default(() => -1));
 		}
 
 		[TestMethod]
@@ -275,36 +293,36 @@ namespace DistributedUnionTests
 
 			Assert.AreEqual(-1, testValue.Match<int>()
 				.Case(t => t == "Testing", v => 100)
-				.Else(() => -1));
+				.Default(() => -1));
 		}
 
-		[TestMethod]
-		public void TestBaseToUnion()
-		{
-			// use this if you have an instance of one of a many sub classes and you want to handle each case differently.
-			TestTypeBase myBase = new ItemType7();
+		////[TestMethod]
+		////public void TestBaseToUnion()
+		////{
+		////	// use this if you have an instance of one of a many sub classes and you want to handle each case differently.
+		////	TestTypeBase myBase = new ItemType7();
 
-			var union = Union.ToUnionOfSubTypes<TestTypeBase, ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6, ItemType7>(myBase);
-			Assert.AreEqual(7, union.Match<int>()
-				.Case(c => 1)
-				.Case(c => 2)
-				.Case(c => 3)
-				.Case(c => 4)
-				.Case(c => 5)
-				.Case(c => 6)
-				.Case(c => 7)
-				.Else(() => -1));
-		}
+		////	var union = Union.ToUnionOfSubTypes<TestTypeBase, ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6, ItemType7>(myBase);
+		////	Assert.AreEqual(7, union.Match<int>()
+		////		.Case(c => 1)
+		////		.Case(c => 2)
+		////		.Case(c => 3)
+		////		.Case(c => 4)
+		////		.Case(c => 5)
+		////		.Case(c => 6)
+		////		.Case(c => 7)
+		////		.Default(() => -1));
+		////}
 
 		[TestMethod]
-		public void TestStateMAchine()
+		public void TestStateMachine()
 		{
 			var progressState = Union
-				.CreateMatch<StateOne, StateTwo, StateThree, Union<StateOne, StateTwo, StateThree>>(c => c
+				.CreateMap<StateOne, StateTwo, StateThree, Union<StateOne, StateTwo, StateThree>>(c => c
 				.Case(v => new StateTwo())
 				.Case(v => new StateThree())
 				.Case(v => new StateOne())
-				.Else(() => null));
+				.Default(() => null));
 
 			var one = new StateOne();
 
@@ -321,125 +339,89 @@ namespace DistributedUnionTests
 			Assert.IsTrue(oneAgain.Is<StateOne>());
 		}
 
-		public class TestTypeBase
-		{
-			public string Value { get; }
+		//public class TestTypeBase
+		//{
+		//	public string Value { get; }
 
-			public TestTypeBase(string value)
-			{
-				this.Value = value;
-			}
-		}
+		//	public TestTypeBase(string value)
+		//	{
+		//		this.Value = value;
+		//	}
+		//}
 
-		public class StateOne : TestTypeBase
+		public class StateOne : Tag<StateOne, string>
 		{
-			public StateOne() : base("StateOne")
-			{
-			}
-		}
-
-		public class StateTwo : TestTypeBase
-		{
-			public StateTwo() : base("StateTwo")
+			public StateOne(string value = "StateOne") : base(value)
 			{
 			}
 		}
 
-		public class StateThree : TestTypeBase
+		public class StateTwo : Tag<StateTwo, string>
 		{
-			public StateThree() : base("StateThree")
+			public StateTwo(string value = "StateTwo") : base(value)
 			{
 			}
 		}
 
-		public class ItemType1 : TestTypeBase
+		public class StateThree : Tag<StateThree, string>
 		{
-			public ItemType1() : base("value1")
+			public StateThree(string value = "StateThree") : base(value)
 			{
 			}
 		}
 
-		public class ItemType2 : TestTypeBase
+		public class ItemType1 : Tag<ItemType1, string>
 		{
-			public ItemType2() : base("value2")
+			public ItemType1(string value = "value1") : base(value)
 			{
 			}
 		}
 
-		public class ItemType3 : TestTypeBase
+		public class ItemType2 : Tag<ItemType2, string>
 		{
-			public ItemType3() : base("value3")
+			public ItemType2(string value = "value2") : base(value)
 			{
 			}
 		}
 
-		public class ItemType4 : TestTypeBase
+		public class ItemType3 : Tag<ItemType3, string>
 		{
-			public ItemType4() : base("value4")
+			public ItemType3(string value = "value3") : base(value)
 			{
 			}
 		}
 
-		public class ItemType5 : TestTypeBase
+		public class ItemType4 : Tag<ItemType4, string>
 		{
-			public ItemType5() : base("value5")
+			public ItemType4(string value = "value4") : base(value)
 			{
 			}
 		}
 
-		public class ItemType6 : TestTypeBase
+		public class ItemType5 : Tag<ItemType5, string>
 		{
-			public ItemType6() : base("value6")
+			public ItemType5(string value = "value5") : base(value)
 			{
 			}
 		}
 
-		public class ItemType7 : TestTypeBase
+		public class ItemType6 : Tag<ItemType6, string>
 		{
-			public ItemType7() : base("value7")
+			public ItemType6(string value = "value6") : base(value)
 			{
 			}
 		}
 
-		public class ItemType8 : TestTypeBase
+		public class ItemType7 : Tag<ItemType7, string>
 		{
-			public ItemType8() : base("value8")
+			public ItemType7(string value = "value7") : base(value)
 			{
 			}
 		}
 
-		public struct None
+		public class ItemType8 : Tag<ItemType8, string>
 		{
-		}
-
-		/// <summary>
-		/// This isn't intended to be a serious implementation of Option this is here to test inheriting from a Union
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <seealso cref="DiscriminatedUnion.Union{T, DistributedUnionTests.UnitTest1.None}" />
-		public class Option<T> : Union<T>
-		{
-			public static Option<TSome> Some<TSome>(TSome value) => new Option<TSome>(value);
-
-			public static Option<TSome> None<TSome>() => new Option<TSome>();
-
-			public Option(T value) : base(value)
-			{
-			}
-
-			/// <summary>
-			/// Performs an implicit conversion from <see cref="T1" /> to <see cref="Union{T1}" />.
-			/// </summary>
-			/// <param name="item">The item.</param>
-			/// <returns>
-			/// The result of the conversion.
-			/// </returns>
-			public static implicit operator Option<T>(T item)
-			{
-				return item == null ? new Option<T>() : new Option<T>(item);
-			}
-
-			public Option() : base(new TypedContainer<None>(new None()))
+			public ItemType8(string value = "value8") : base(value)
 			{
 			}
 		}
