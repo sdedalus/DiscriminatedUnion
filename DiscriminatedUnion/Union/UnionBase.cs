@@ -10,7 +10,7 @@ namespace DiscriminatedUnion
 		/// <summary>
 		/// The value
 		/// </summary>
-		protected readonly ITypeContainer value;
+		protected readonly ITypeContainer Value;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UnionBase"/> class.
@@ -18,7 +18,7 @@ namespace DiscriminatedUnion
 		/// <param name="value">The value.</param>
 		protected UnionBase(ITypeContainer value)
 		{
-			this.value = value;
+			this.Value = value;
 		}
 
 		/// <summary>
@@ -27,7 +27,7 @@ namespace DiscriminatedUnion
 		/// <value>
 		/// The value container.
 		/// </value>
-		public ITypeContainer ValueContainer => value;
+		public ITypeContainer ValueContainer => Value;
 
 		/// <summary>
 		/// Determines whether [is].
@@ -36,13 +36,13 @@ namespace DiscriminatedUnion
 		/// <returns>
 		///   <c>true</c> if [is]; otherwise, <c>false</c>.
 		/// </returns>
-		public bool Is<T>() => typeof(T) == value.ContainedValueType;
+		public bool Is<T>() => typeof(T) == Value.ContainedValueType;
 
 		public bool Is<T>(out T ret)
 		{
-			var isType = typeof(T) == value.ContainedValueType;
+			var isType = typeof(T) == Value.ContainedValueType;
 			
-			ret = isType ? ((IValueContainer<T>) value).ContainedValue : default(T);
+			ret = isType ? ((IValueContainer<T>) Value).ContainedValue : default(T);
 			return isType;
 
 		}
@@ -50,10 +50,10 @@ namespace DiscriminatedUnion
 		/// <summary>
 		/// Determines whether [is] [the specified proposed type].
 		/// </summary>
-		/// <param name="ProposedType">Type of the proposed.</param>
+		/// <param name="proposedType">Type of the proposed.</param>
 		/// <returns>
 		///   <c>true</c> if [is] [the specified proposed type]; otherwise, <c>false</c>.
 		/// </returns>
-		public bool Is(Type ProposedType) => ProposedType == value.ContainedValueType;
+		public bool Is(Type proposedType) => proposedType == Value.ContainedValueType;
 	}
 }

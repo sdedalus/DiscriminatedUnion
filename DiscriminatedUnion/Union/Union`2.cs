@@ -30,6 +30,6 @@
 			return new Union<T1, T2>(item);
 		}
 
-		public ICase<T1, T2, TReturn> Match<TReturn>() => new Match<T1, T2, TReturn>(value);
+		public ICase<T1, T2, TReturn> Match<TReturn>() => new Match<T1, T2, TReturn>(Value);
 	}
 }

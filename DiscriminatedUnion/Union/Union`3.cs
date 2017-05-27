@@ -73,6 +73,6 @@
 			return new Union<T1, T2, T3>(item);
 		}
 
-		public ICase<T1, T2, T3, TReturn> Match<TReturn>() => new Match<T1, T2, T3, TReturn>(value);
+		public ICase<T1, T2, T3, TReturn> Match<TReturn>() => new Match<T1, T2, T3, TReturn>(Value);
 	}
 }
