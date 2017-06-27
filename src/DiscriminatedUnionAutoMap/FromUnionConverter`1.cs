@@ -8,7 +8,7 @@ namespace UnionAutoMap
 	/// </summary>
 	/// <typeparam name="T1">The type of the 1.</typeparam>
 	/// <typeparam name="TDestination">The type of the destination.</typeparam>
-	/// <seealso cref="AutoMapper.ITypeConverter{DiscriminatedUnion.Union{T1}, TDestination}" />
+	/// <seealso cref="Union{T1}" />
 	public class FromUnionConverter<T1, TDestination> : ITypeConverter<Union<T1>, TDestination>
 	{
 		/// <summary>

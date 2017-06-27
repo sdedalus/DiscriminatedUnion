@@ -1,25 +1,24 @@
 ﻿using System;
 using DiscriminatedUnion;
 using DiscriminatedUnion.Option;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace DiscriminatedUnionTests
 {
-	[TestClass]
 	public class UnionShould
 	{
-		[TestMethod]
+		[Fact]
 		public void InheritedFunctionalityTest()
 		{
 			var x = Option<String>.Some("Test");
 
-			Assert.AreEqual("It's Test!", x.Match<String>()
+			Assert.Equal("It's Test!", x.Match<String>()
 				.Case(c => c == "Test", v => "It's Test!")
 				.Case(v => "It's Not Test!")
 				.Default(() => "It's None!"));
 		}
 
-		[TestMethod]
+		[Fact]
 		public void TypedContainerTest()
 		{
 			ITypeContainer x = new TypedContainer<string>("Testing");
@@ -27,19 +26,19 @@ namespace DiscriminatedUnionTests
 			var y = x.ToContainedType<object>();
 		}
 
-		[TestMethod]
+		[Fact]
 		public void InheritedFunctionalityTestNone()
 		{
 			string value = null;
 			Option<String> x = value;
 
-			Assert.AreEqual("It's None!", x.Match<String>()
+			Assert.Equal("It's None!", x.Match<String>()
 				.Case(c => c == "Test", v => "It's Test!")
 				.Case(v => "It's Not Test!")
 				.Default(() => "It's None!"));
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTest3()
 		{
 			Union<string, int> x = "Test";
@@ -49,10 +48,10 @@ namespace DiscriminatedUnionTests
 				.Case(b => b.ToString())
 				.Default(() => "Nothing");
 
-			Assert.AreEqual("Test", value);
+			Assert.Equal("Test", value);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTestModern()
 		{
 			Union<string, int> x = "Test";
@@ -66,10 +65,10 @@ namespace DiscriminatedUnionTests
 					value = i.ToString();
 					break;
 			}
-			Assert.AreEqual("Test", value);
+			Assert.Equal("Test", value);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTestShortcut()
 		{
 			Union<string, int> x = 10;
@@ -77,10 +76,10 @@ namespace DiscriminatedUnionTests
 			string value = x.Match<string>()
 				.Default(() => "Nothing");
 
-			Assert.AreEqual("Nothing", value);
+			Assert.Equal("Nothing", value);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTest4()
 		{
 			var x = new Union<string, int>(100);
@@ -90,10 +89,10 @@ namespace DiscriminatedUnionTests
 				.Case(b => b.ToString())
 				.Default(() => "Nothing");
 
-			Assert.AreEqual("100", value);
+			Assert.Equal("100", value);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTest5()
 		{
 			var x = new Union<string, int>(100);
@@ -104,10 +103,10 @@ namespace DiscriminatedUnionTests
 				.Case(v => "Tea?")
 				.Default(() => "Nothing");
 
-			Assert.AreEqual("Keeping It 100.", value);
+			Assert.Equal("Keeping It 100.", value);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTest5Depth()
 		{
 			var x = new Union<string, Union<string, Union<string>>>(new Union<string, Union<string>>(new Union<string>("Test")));
@@ -123,10 +122,10 @@ namespace DiscriminatedUnionTests
 						.Default(() => "Not This"))
 				.Default(() => "Not This");
 
-			Assert.AreEqual("Test", value);
+			Assert.Equal("Test", value);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTest6()
 		{
 			string value = AOrB(true)
@@ -136,10 +135,10 @@ namespace DiscriminatedUnionTests
 				.Case(v => "Tea?")
 				.Default(() => "Nothing");
 
-			Assert.AreEqual("Keeping It 100.", value);
+			Assert.Equal("Keeping It 100.", value);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTest7()
 		{
 			string value = AOrB(false)
@@ -148,10 +147,10 @@ namespace DiscriminatedUnionTests
 				.Case(b => b == 100 ? "Keeping It 100." : "Tea?")
 				.Default(() => "Nothing");
 
-			Assert.AreEqual("test", value);
+			Assert.Equal("test", value);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTest8()
 		{
 			var x = Union.ToErrorUnion<int, UnauthorizedAccessException>(() => AOrError(false));
@@ -161,7 +160,7 @@ namespace DiscriminatedUnionTests
 				.Case(b => "test")
 				.Default(() => "Nothing");
 
-			Assert.AreEqual("test", value);
+			Assert.Equal("test", value);
 		}
 
 		private Union<string, int> AOrB(bool isA)
@@ -188,24 +187,24 @@ namespace DiscriminatedUnionTests
 			}
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTest3_1()
 		{
 			Union<ItemType1, ItemType2, ItemType3> x = new ItemType3();
 
-			Assert.AreEqual("value3", x.Match<string>()
+			Assert.Equal("value3", x.Match<string>()
 				.Case(item => (string)item)
 				.Case(item => item)
 				.Case(item => item)
 				.Default(() => "Nothing"));
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTest4_1()
 		{
 			Union<ItemType1, ItemType2, ItemType3, ItemType4> x = new ItemType4();
 
-			Assert.AreEqual("value4", x.Match<string>()
+			Assert.Equal("value4", x.Match<string>()
 				.Case(item => item)
 				.Case(item => item)
 				.Case(item => item)
@@ -213,12 +212,12 @@ namespace DiscriminatedUnionTests
 				.Default(() => "Nothing"));
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTest5_1()
 		{
 			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5> x = Discriminator.Tag<ItemType5>("value15");
 
-			Assert.AreEqual("value15", x.Match<string>()
+			Assert.Equal("value15", x.Match<string>()
 				.Case(item => item)
 				.Case(item => item)
 				.Case(item => item)
@@ -227,12 +226,12 @@ namespace DiscriminatedUnionTests
 				.Default(() => "Nothing"));
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTest6_1()
 		{
 			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6> x = new ItemType6();
 
-			Assert.AreEqual("value6", x.Match<string>()
+			Assert.Equal("value6", x.Match<string>()
 				.Case(item => item)
 				.Case(item => item)
 				.Case(item => item)
@@ -242,12 +241,12 @@ namespace DiscriminatedUnionTests
 				.Default(() => "Nothing"));
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTest7_1()
 		{
 			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6, ItemType7> x = Discriminator.Tag<ItemType7>("value7");
 
-			Assert.AreEqual("value7", x.Match<string>()
+			Assert.Equal("value7", x.Match<string>()
 				.Case(item => item)
 				.Case(item => item)
 				.Case(item => item)
@@ -258,12 +257,12 @@ namespace DiscriminatedUnionTests
 				.Default(() => "Nothing"));
 		}
 
-		[TestMethod]
+		[Fact]
 		public void UnionTest8_1()
 		{
 			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6, ItemType7, ItemType8> x = new ItemType8();
 
-			Assert.AreEqual("value8", x.Match<string>()
+			Assert.Equal("value8", x.Match<string>()
 				.Case(item => item)
 				.Case(item => item)
 				.Case(item => item)
@@ -275,46 +274,28 @@ namespace DiscriminatedUnionTests
 				.Default(() => "Nothing"));
 		}
 
-		[TestMethod]
+		[Fact]
 		public void MatchTest()
 		{
 			var testValue = "Testing";
 
-			Assert.AreEqual(100, testValue.Match<int>()
+			Assert.Equal(100, testValue.Match<int>()
 				.Case(t => t == "Testing", v => 100)
 				.Case(v => 0)
 				.Default(() => -1));
 		}
 
-		[TestMethod]
+		[Fact]
 		public void MatchTest2()
 		{
 			string testValue = null;
 
-			Assert.AreEqual(-1, testValue.Match<int>()
+			Assert.Equal(-1, testValue.Match<int>()
 				.Case(t => t == "Testing", v => 100)
 				.Default(() => -1));
 		}
-
-		////[TestMethod]
-		////public void TestBaseToUnion()
-		////{
-		////	// use this if you have an instance of one of a many sub classes and you want to handle each case differently.
-		////	TestTypeBase myBase = new ItemType7();
-
-		////	var union = Union.ToUnionOfSubTypes<TestTypeBase, ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6, ItemType7>(myBase);
-		////	Assert.AreEqual(7, union.Match<int>()
-		////		.Case(c => 1)
-		////		.Case(c => 2)
-		////		.Case(c => 3)
-		////		.Case(c => 4)
-		////		.Case(c => 5)
-		////		.Case(c => 6)
-		////		.Case(c => 7)
-		////		.Default(() => -1));
-		////}
-
-		[TestMethod]
+		
+		[Fact]
 		public void TestStateMachine()
 		{
 			var progressState = Union
@@ -328,27 +309,17 @@ namespace DiscriminatedUnionTests
 
 			var two = progressState(one);
 
-			Assert.IsTrue(two.Is<StateTwo>());
+			Assert.True(two.Is<StateTwo>());
 
 			var three = progressState(two);
 
-			Assert.IsTrue(three.Is<StateThree>());
+			Assert.True(three.Is<StateThree>());
 
 			var oneAgain = progressState(three);
 
-			Assert.IsTrue(oneAgain.Is<StateOne>());
+			Assert.True(oneAgain.Is<StateOne>());
 		}
-
-		//public class TestTypeBase
-		//{
-		//	public string Value { get; }
-
-		//	public TestTypeBase(string value)
-		//	{
-		//		this.Value = value;
-		//	}
-		//}
-
+		
 		public class StateOne : Tag<StateOne, string>
 		{
 			public StateOne(string value = "StateOne") : base(value)

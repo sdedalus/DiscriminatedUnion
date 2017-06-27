@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DiscriminatedUnionJsonConverter</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors> ["David Lewis"]</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/sdedalus/DiscriminatedUnion</licenseUrl>
+    <projectUrl>https://github.com/sdedalus/DiscriminatedUnion</projectUrl>
+    <iconUrl>https://github.com/sdedalus/DiscriminatedUnion</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>DiscriminatedUnion Json Converter</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>Tag1 Tag2</tags>
+  </metadata>
+  <files>
+    <file src="DiscriminatedUnionJsonConverter.dll" target="lib\net45" />
+  </files>
+</package>

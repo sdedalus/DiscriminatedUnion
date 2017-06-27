@@ -1,10 +1,7 @@
-version: 1.0.{build}
-image: Visual Studio 2017
-before_build:
-  nuget restore
-build:
-  project: src\DiscriminatedUnion.csproj
-  publish_nuget: true
-  publish_nuget_symbols: true
-  include_nuget_references: true
-  verbosity: minimal
+environment:  
+  version: 1.0.{build}
+assembly_info:  
+  patch: false
+build_script:  
+  build.cmd
+test: off  

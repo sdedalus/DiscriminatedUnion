@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using DiscriminatedUnion;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 using UnionAutoMap;
 
 namespace DiscriminatedUnionAutoMapTests
 {
-	[TestClass]
+	
 	public class UnionAutoMap
 	{
 		public UnionAutoMap()
@@ -22,79 +22,79 @@ namespace DiscriminatedUnionAutoMapTests
 			});
 		}
 
-		[TestMethod]
+		[Fact]
 		public void MapLeftOneToUnionRightOneRightTwo()
 		{
 			LeftOne left = new LeftOne() { MyProperty = "test", MyProperty2 = "Test" };
 			var right = Mapper.Map<LeftOne, Union<RightOne, RightTwo>>(left);
 
-			Assert.IsTrue(right.Is<RightOne>());
+			Assert.True(right.Is<RightOne>());
 
-			Assert.AreEqual("testTest", right.Match<string>()
+			Assert.Equal("testTest", right.Match<string>()
 				.Case(v => v.MyProperty + v.MyProperty2)
 				.Case(v => v.MyProperty.ToString() + v.MyProperty2.ToString())
 				.Default(() => ""));
 		}
 
-		[TestMethod]
+		[Fact]
 		public void MapLeftTwoToUnionRightOneRightTwo()
 		{
 			LeftTwo left = new LeftTwo() { MyProperty = 1, MyProperty2 = 1 };
 			var right = Mapper.Map<LeftTwo, Union<RightOne, RightTwo>>(left);
 
-			Assert.IsTrue(right.Is<RightTwo>());
+			Assert.True(right.Is<RightTwo>());
 
-			Assert.AreEqual(2, right.Match<int>()
+			Assert.Equal(2, right.Match<int>()
 				.Case(v => -1)
 				.Case(v => v.MyProperty + v.MyProperty2)
 				.Default(() => -1));
 		}
 
-		[TestMethod]
+		[Fact]
 		public void MapLeftOneInUnionLeftOneLeftTwoToRightOne()
 		{
 			Union<LeftOne, LeftTwo> left = new LeftOne() { MyProperty = "test", MyProperty2 = "Test" };
 			var right = Mapper.Map<Union<LeftOne, LeftTwo>, RightOne>(left);
 
-			Assert.IsInstanceOfType(right, typeof(RightOne));
+			Assert.IsAssignableFrom<RightOne>(right);
 
-			Assert.AreEqual("testTest", right.MyProperty + right.MyProperty2);
+			Assert.Equal("testTest", right.MyProperty + right.MyProperty2);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void MapLeftTwoInUnionLeftOneLeftTwoToRightOne()
 		{
 			Union<LeftOne, LeftTwo> left = new LeftTwo() { MyProperty = 1, MyProperty2 = 1 };
 			var right = Mapper.Map<Union<LeftOne, LeftTwo>, RightTwo>(left);
 
-			Assert.IsInstanceOfType(right, typeof(RightTwo));
+			Assert.IsAssignableFrom<RightTwo>(right);
 
-			Assert.AreEqual(2, right.MyProperty + right.MyProperty2);
+			Assert.Equal(2, right.MyProperty + right.MyProperty2);
 		}
 
-		[TestMethod]
+		[Fact]
 		public void MapLeftTwoInUnionLeftOneLeftTwoToUnionRightOneRightTwo()
 		{
 			Union<LeftOne, LeftTwo> left = new LeftTwo() { MyProperty = 1, MyProperty2 = 1 };
 			var right = Mapper.Map<Union<LeftOne, LeftTwo>, Union<RightOne, RightTwo>>(left);
 
-			Assert.IsTrue(right.Is<RightTwo>());
+			Assert.True(right.Is<RightTwo>());
 
-			Assert.AreEqual(2, right.Match<int>()
+			Assert.Equal(2, right.Match<int>()
 				.Case(v => -1)
 				.Case(v => v.MyProperty + v.MyProperty2)
 				.Default(() => -1));
 		}
 
-		[TestMethod]
+		[Fact]
 		public void MapLeftOneInUnionLeftOneLeftTwoToUnionRightOneRightTwo()
 		{
 			Union<LeftOne, LeftTwo> left = new LeftOne() { MyProperty = "test", MyProperty2 = "Test" };
 			var right = Mapper.Map<Union<LeftOne, LeftTwo>, Union<RightOne, RightTwo>>(left);
 
-			Assert.IsTrue(right.Is<RightOne>());
+			Assert.True(right.Is<RightOne>());
 
-			Assert.AreEqual("testTest", right.Match<string>()
+			Assert.Equal("testTest", right.Match<string>()
 				.Case(v => v.MyProperty + v.MyProperty2)
 				.Case(v => v.MyProperty.ToString() + v.MyProperty2.ToString())
 				.Default(() => ""));

@@ -18,5 +18,5 @@ string value = x.Match<string>()
 	.Case((int v) => "Tea?")
 	.Else(() => "Nothing");
 
-Assert.AreEqual("Keeping It 100.", value);
+Assert.Equal("Keeping It 100.", value);
 ```

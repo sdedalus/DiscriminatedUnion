@@ -13,7 +13,7 @@ namespace UnionAutoMap
 	/// <typeparam name="T5">The type of the 5.</typeparam>
 	/// <typeparam name="T6">The type of the 6.</typeparam>
 	/// <typeparam name="TDestination">The type of the destination.</typeparam>
-	/// <seealso cref="AutoMapper.ITypeConverter{DiscriminatedUnion.Union{T1, T2, T3, T4, T5, T6}, TDestination}" />
+	/// <seealso cref="Union{T1}" />
 	public class FromUnionConverter<T1, T2, T3, T4, T5, T6, TDestination> : ITypeConverter<Union<T1, T2, T3, T4, T5, T6>, TDestination>
 	{
 		/// <summary>

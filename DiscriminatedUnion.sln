@@ -8,12 +8,25 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscriminatedUnionTests", "src\DiscriminatedUnionTests\DiscriminatedUnionTests.csproj", "{0B741851-0979-4333-BA94-49F3F6086C9A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscriminatedUnionAutoMap", "src\DiscriminatedUnionAutoMap\DiscriminatedUnionAutoMap.csproj", "{02FF4951-7724-450A-A34E-CE81E180326D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1777ABBD-3579-4B99-B2E2-24ED3E834F84} = {1777ABBD-3579-4B99-B2E2-24ED3E834F84}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscriminatedUnionAutoMapTests", "src\DiscriminatedUnionAutoMapTests\DiscriminatedUnionAutoMapTests.csproj", "{C0BA2DCC-A6BE-437C-ACAF-3E35587A6DB3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscriminatedUnionJsonConverter", "src\DiscriminatedUnionJsonConverter\DiscriminatedUnionJsonConverter.csproj", "{5693CF0B-86D6-4E1D-985B-24C2E8ED6A17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscriminatedUnionJsonConverterTest", "src\DiscriminatedUnionJsonConverterTest\DiscriminatedUnionJsonConverterTest.csproj", "{156FD9E6-ECB1-42D5-8A98-B6F1ABFDAC69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscriminatedUnionJsonConverterTests", "src\DiscriminatedUnionJsonConverterTests\DiscriminatedUnionJsonConverterTests.csproj", "{156FD9E6-ECB1-42D5-8A98-B6F1ABFDAC69}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".common", ".common", "{44543414-0D9F-4A3A-8847-363C21BDD1C5}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		appveyor.yml = appveyor.yml
+		build.cmd = build.cmd
+		build.fsx = build.fsx
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +65,7 @@ Global
 		{0B741851-0979-4333-BA94-49F3F6086C9A}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{0B741851-0979-4333-BA94-49F3F6086C9A}.Debug|x86.Build.0 = Debug|Any CPU
 		{0B741851-0979-4333-BA94-49F3F6086C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B741851-0979-4333-BA94-49F3F6086C9A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0B741851-0979-4333-BA94-49F3F6086C9A}.Release|ARM.ActiveCfg = Release|Any CPU
 		{0B741851-0979-4333-BA94-49F3F6086C9A}.Release|ARM.Build.0 = Release|Any CPU
 		{0B741851-0979-4333-BA94-49F3F6086C9A}.Release|x64.ActiveCfg = Release|Any CPU
@@ -83,6 +97,7 @@ Global
 		{C0BA2DCC-A6BE-437C-ACAF-3E35587A6DB3}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{C0BA2DCC-A6BE-437C-ACAF-3E35587A6DB3}.Debug|x86.Build.0 = Debug|Any CPU
 		{C0BA2DCC-A6BE-437C-ACAF-3E35587A6DB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0BA2DCC-A6BE-437C-ACAF-3E35587A6DB3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C0BA2DCC-A6BE-437C-ACAF-3E35587A6DB3}.Release|ARM.ActiveCfg = Release|Any CPU
 		{C0BA2DCC-A6BE-437C-ACAF-3E35587A6DB3}.Release|ARM.Build.0 = Release|Any CPU
 		{C0BA2DCC-A6BE-437C-ACAF-3E35587A6DB3}.Release|x64.ActiveCfg = Release|Any CPU
@@ -114,6 +129,7 @@ Global
 		{156FD9E6-ECB1-42D5-8A98-B6F1ABFDAC69}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{156FD9E6-ECB1-42D5-8A98-B6F1ABFDAC69}.Debug|x86.Build.0 = Debug|Any CPU
 		{156FD9E6-ECB1-42D5-8A98-B6F1ABFDAC69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{156FD9E6-ECB1-42D5-8A98-B6F1ABFDAC69}.Release|Any CPU.Build.0 = Release|Any CPU
 		{156FD9E6-ECB1-42D5-8A98-B6F1ABFDAC69}.Release|ARM.ActiveCfg = Release|Any CPU
 		{156FD9E6-ECB1-42D5-8A98-B6F1ABFDAC69}.Release|ARM.Build.0 = Release|Any CPU
 		{156FD9E6-ECB1-42D5-8A98-B6F1ABFDAC69}.Release|x64.ActiveCfg = Release|Any CPU
