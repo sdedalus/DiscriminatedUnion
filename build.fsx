@@ -23,7 +23,8 @@ module Settings =
 
   let build proj =
     let outputDir = proj |> getOutputDir
-    MSBuildRelease outputDir "ResolveReferences;Build" [proj] |> ignore
+    MSBuildRelease outputDir "ResolveReferences;Build" [proj] 
+    |> Log "Build-Output: "
 
   let getVersion() =
     let buildCandidate = (environVar "APPVEYOR_BUILD_NUMBER")
