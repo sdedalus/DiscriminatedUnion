@@ -17,6 +17,9 @@ module Settings =
   let testProjects = !! "src/**/*Tests.csproj"
   let packages = !! "./**/packages.config"
 
+  let solution = !! "*.sln" 
+
+
   let getOutputDir proj =
     let folderName = Directory.GetParent(proj).Name
     sprintf "%s%s/" buildDir folderName
@@ -41,9 +44,13 @@ module Targets =
     |> Seq.iter (RestorePackage (fun p -> {p with OutputPath = "./packages"}))
   )
 
+  // Target "Build" (fun() ->
+  //   projects
+  //   |> Seq.iter build
+  
   Target "Build" (fun() ->
-    projects
-    |> Seq.iter build
+    MSBuildRelease buildDir "ResolveReferences;Build" solution
+    |> ignore
   )
     
   Target "BuildTest" (fun() ->
@@ -54,21 +61,21 @@ module Targets =
 
   Target "CopyMain" (fun _ ->
     let targetDir = packagingDir @@ "main"
-    let sourceFile = buildDir + "DiscriminatedUnion/DiscriminatedUnion.dll"
+    let sourceFile = buildDir + "DiscriminatedUnion.dll"
     CreateDir targetDir
     CopyFile targetDir sourceFile 
   )
 
   Target "CopyJson" (fun _ ->
     let targetDir = packagingDir @@ "json"
-    let sourceFile = buildDir + "DiscriminatedUnionJsonConverter/DiscriminatedUnionJsonConverter.dll"
+    let sourceFile = buildDir + "DiscriminatedUnionJsonConverter.dll"
     CreateDir targetDir
     CopyFile targetDir sourceFile
   )
 
   Target "CopyAuto" (fun _ ->
     let targetDir = packagingDir @@ "automap"
-    let sourceFile = buildDir + "DiscriminatedUnionAutoMap/DiscriminatedUnionAutoMap.dll"
+    let sourceFile = buildDir + "DiscriminatedUnionAutoMap.dll"
     CreateDir targetDir
     CopyFile targetDir sourceFile
   )
