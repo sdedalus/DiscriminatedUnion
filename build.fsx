@@ -49,7 +49,7 @@ module Targets =
   //   |> Seq.iter build
   
   Target "Build" (fun() ->
-    MSBuildRelease buildDir "ResolveReferences;Build" solution
+    MSBuildRelease buildDir "Build" solution
     |> ignore
   )
     
