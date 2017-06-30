@@ -26,7 +26,7 @@ module Settings =
 
   let build proj =
     let outputDir = proj |> getOutputDir
-    MSBuildRelease outputDir "ResolveReferences;Build" [proj] 
+    MSBuildRelease outputDir "Build" [proj] 
     |> Log "Build-Output: "
 
   let getVersion() =
