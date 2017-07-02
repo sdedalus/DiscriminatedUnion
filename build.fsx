@@ -55,14 +55,14 @@ module Targets =
     
   Target "BuildTest" (fun() ->
      
-    MSBuild testDir "Build" 
+    (solution) |> MSBuild testDir "Build" 
          [ 
             "Configuration", "Test"
             "Platform", "Any CPU"
             "DeployOnBuild", "false"
             "DeployTarget", "Package"
             "OutFolder", testDir
-         ] solution
+         ] 
     |> ignore
   )
 
