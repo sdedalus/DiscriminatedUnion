@@ -54,8 +54,15 @@ module Targets =
   )
     
   Target "BuildTest" (fun() ->
-    testProjects
-    |> MSBuildDebug testDir "Build"
+     
+    MSBuild testDir "Build" 
+         [ 
+            "Configuration", "Test"
+            "Platform", "Any CPU"
+            "DeployOnBuild", "false"
+            "DeployTarget", "Package"
+            "OutFolder", testDir
+         ] solution
     |> ignore
   )
 
@@ -155,8 +162,8 @@ module Targets =
 "Clean"
 ==> "RestorePackages"
 ==> "Build"
-//==> "BuildTest"
-//==> "Test"
+==> "BuildTest"
+==> "Test"
 ==> "CopyMain"
 ==> "CopyJson"
 ==> "CopyAuto"
