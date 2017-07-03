@@ -60,8 +60,6 @@ module Targets =
             "Configuration", "Test"
             "Platform", "Any CPU"
             "DeployOnBuild", "false"
-            "DeployTarget", "Package"
-            "OutFolder", testDir
          ] 
     |> ignore
   )
