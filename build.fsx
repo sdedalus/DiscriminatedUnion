@@ -55,7 +55,7 @@ module Targets =
     
   Target "BuildTest" (fun() ->
      
-    MSBuild testDir "Build" 
+    MSBuild testDir "Test" 
          [ 
             "Configuration", "Test"
             "Platform", "Any CPU"            
