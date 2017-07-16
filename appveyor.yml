@@ -4,4 +4,6 @@ assembly_info:
   patch: false
 build_script:  
   build.cmd
+image: 
+  Visual Studio 2017
 test: off  

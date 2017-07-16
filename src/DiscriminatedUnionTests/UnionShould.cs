@@ -52,22 +52,22 @@ namespace DiscriminatedUnionTests
 			Assert.Equal("Test", value);
 		}
 
-		////[Fact]
-		////public void UnionTestModern()
-		////{
-		////	Union<string, int> x = "Test";
-		////	string value = string.Empty;
-		////	switch (x)
-		////	{
-		////		case var a when a.Is<string>(out var s):
-		////			value = s;
-		////			break;
-		////		case var a when a.Is<int>(out var i):
-		////			value = i.ToString();
-		////			break;
-		////	}
-		////	Assert.Equal("Test", value);
-		////}
+		[Fact]
+		public void UnionTestModern()
+		{
+			Union<string, int> x = "Test";
+			string value = string.Empty;
+			switch (x)
+			{
+				case var a when a.Is<string>(out var s):
+					value = s;
+					break;
+				case var a when a.Is<int>(out var i):
+					value = i.ToString();
+					break;
+			}
+			Assert.Equal("Test", value);
+		}
 
 		[Fact]
 		public void UnionTestShortcut()
