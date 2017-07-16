@@ -54,9 +54,9 @@ namespace DiscriminatedUnion
 			return Tag<TTag, decimal>(value);
 		}
 
-		public static TTag Tag<TTag>(Int16 value) where TTag : Tag<TTag, Int16>
+		public static TTag Tag<TTag>(short value) where TTag : Tag<TTag, short>
 		{
-			return Tag<TTag, Int16>(value);
+			return Tag<TTag, short>(value);
 		}
 
 		public static TTag Tag<TTag>(object value) where TTag : Tag<TTag, object>

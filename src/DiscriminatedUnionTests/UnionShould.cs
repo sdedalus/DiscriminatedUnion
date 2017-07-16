@@ -10,9 +10,9 @@ namespace DiscriminatedUnionTests
 		[Fact]
 		public void InheritedFunctionalityTest()
 		{
-			var x = Option<String>.Some("Test");
+			var x = Option<string>.Some("Test");
 
-			Assert.Equal("It's Test!", x.Match<String>()
+			Assert.Equal("It's Test!", x.Match<string>()
 				.Case(c => c == "Test", v => "It's Test!")
 				.Case(v => "It's Not Test!")
 				.Default(() => "It's None!"));
@@ -30,9 +30,10 @@ namespace DiscriminatedUnionTests
 		public void InheritedFunctionalityTestNone()
 		{
 			string value = null;
-			Option<String> x = value;
+			// ReSharper disable once ExpressionIsAlwaysNull
+			Option<string> x = value;
 
-			Assert.Equal("It's None!", x.Match<String>()
+			Assert.Equal("It's None!", x.Match<string>()
 				.Case(c => c == "Test", v => "It's Test!")
 				.Case(v => "It's Not Test!")
 				.Default(() => "It's None!"));
@@ -55,7 +56,7 @@ namespace DiscriminatedUnionTests
 		public void UnionTestModern()
 		{
 			Union<string, int> x = "Test";
-			string value = "";
+			string value = string.Empty;
 			switch (x)
 			{
 				case var a when a.Is<string>(out var s):

@@ -77,8 +77,8 @@ namespace DiscriminatedUnion
 		/// <typeparam name="TReturn">The type of the return.</typeparam>
 		/// <param name="value">The value.</param>
 		/// <returns></returns>
-		public static ICase<Byte, TReturn> Match<TReturn>(this Byte value) =>
-			Match<Byte, TReturn>(value);
+		public static ICase<byte, TReturn> Match<TReturn>(this byte value) =>
+			Match<byte, TReturn>(value);
 
 		/// <summary>
 		/// Matches the specified value.
