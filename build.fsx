@@ -52,10 +52,10 @@ module Targets =
     MSBuildRelease buildDir "Build" solution
     |> ignore
   )
-    
+  
   Target "BuildTest" (fun() ->
      
-    MSBuild testDir "Build" [ "Configuration", "Release" ] testProjects
+    MSBuild testDir "Build" [ "Configuration", "Test" ] solution
     |> ignore
   )
 
