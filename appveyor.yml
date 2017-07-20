@@ -14,5 +14,3 @@ deploy:
   artifact: .deploy\*.nupkg
   on:
     branch: master
-
-    
