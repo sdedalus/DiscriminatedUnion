@@ -4,7 +4,11 @@
     <id>DiscriminatedUnionJsonConverter</id>
     <version>$version$</version>
     <title>$title$</title>
-    <authors> ["David Lewis"]</authors>
+    <authors> ["David Lewis"]</authors>  
+    <dependencies>
+      <dependency id="DiscriminatedUnion" version="$version$" />
+      <dependency id="Newtonsoft.Json" version="10.0.3" />
+    </dependencies>
     <owners>$author$</owners>
     <licenseUrl>https://github.com/sdedalus/DiscriminatedUnion</licenseUrl>
     <projectUrl>https://github.com/sdedalus/DiscriminatedUnion</projectUrl>
@@ -18,4 +22,5 @@
   <files>
     <file src="DiscriminatedUnionJsonConverter.dll" target="lib\net45" />
   </files>
+
 </package>

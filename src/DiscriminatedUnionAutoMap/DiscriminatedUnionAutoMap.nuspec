@@ -5,6 +5,10 @@
     <version>$version$</version>
     <title>$title$</title>
     <authors>["David Lewis"]</authors>
+    <dependencies>
+      <dependency id="DiscriminatedUnion" version="$version$" />
+      <dependency id="AutoMapper" version="6.1.0" />
+    </dependencies>
     <owners>$author$</owners>
     <licenseUrl>https://github.com/sdedalus/DiscriminatedUnion</licenseUrl>
     <projectUrl>https://github.com/sdedalus/DiscriminatedUnion</projectUrl>
@@ -13,7 +17,7 @@
     <description>DiscriminatedUnion AutoMap Helper.</description>
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
     <copyright>Copyright 2017</copyright>
-    <tags>Tag1 Tag2</tags>
+    <tags>Fluent Functional</tags>
   </metadata>
   <files>
     <file src="DiscriminatedUnionAutoMap.dll" target="lib\net45" />
