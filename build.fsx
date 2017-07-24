@@ -18,7 +18,8 @@ module Settings =
   let packages = !! "./**/packages.config"
 
   let solution = !! "*.sln" 
-
+  
+  let nuGetApiKey = environVar "nuget_api_key"
 
   let getOutputDir proj =
     let folderName = Directory.GetParent(proj).Name
@@ -150,6 +151,39 @@ module Targets =
               ("src/DiscriminatedUnionAutoMap/DiscriminatedUnionAutoMap.nuspec")
   )
 
+  Target "DeployNuGet" (fun _ ->
+    let version = getVersion()
+    NuGetPublish (fun nugetParams -> 
+      { nugetParams with
+          AccessKey = nuGetApiKey
+          PublishUrl = "nuget.org"
+          Project = "DiscriminatedUnion"
+          Version = version
+          WorkingDir = deployDir
+      }
+    )
+
+    NuGetPublish (fun nugetParams -> 
+      { nugetParams with
+          AccessKey = nuGetApiKey
+          PublishUrl = "nuget.org"
+          Project = "DiscriminatedUnionAutoMap"
+          Version = version
+          WorkingDir = deployDir
+      }
+    )
+
+    NuGetPublish (fun nugetParams -> 
+      { nugetParams with
+          AccessKey = nuGetApiKey
+          PublishUrl = "nuget.org"
+          Project = "DiscriminatedUnionJsonConverter"
+          Version = version
+          WorkingDir = deployDir
+      }
+    )
+  )
+
   Target "Default" (fun _ -> ())
   
 "Clean"
@@ -163,6 +197,7 @@ module Targets =
 ==> "PackageMain"
 ==> "PackageJson"
 ==> "PackageAutoMap"
+==> "DeployNuGet"
 ==> "Default"
 
 RunTargetOrDefault "Default"
