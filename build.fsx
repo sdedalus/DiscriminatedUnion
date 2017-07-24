@@ -153,33 +153,37 @@ module Targets =
 
   Target "DeployNuGet" (fun _ ->
     let version = getVersion()
+    let nuGetUrl = "https://nuget.org"
     NuGetPublish (fun nugetParams -> 
       { nugetParams with
           AccessKey = nuGetApiKey
-          PublishUrl = "nuget.org"
+          PublishUrl = nuGetUrl
           Project = "DiscriminatedUnion"
           Version = version
-          WorkingDir = deployDir
+          WorkingDir = deployDir 
+          OutputPath = deployDir 
       }
     )
 
     NuGetPublish (fun nugetParams -> 
       { nugetParams with
           AccessKey = nuGetApiKey
-          PublishUrl = "nuget.org"
+          PublishUrl = nuGetUrl
           Project = "DiscriminatedUnionAutoMap"
           Version = version
           WorkingDir = deployDir
+          OutputPath = deployDir
       }
     )
 
     NuGetPublish (fun nugetParams -> 
       { nugetParams with
           AccessKey = nuGetApiKey
-          PublishUrl = "nuget.org"
+          PublishUrl = nuGetUrl
           Project = "DiscriminatedUnionJsonConverter"
           Version = version
           WorkingDir = deployDir
+          OutputPath = deployDir
       }
     )
   )
