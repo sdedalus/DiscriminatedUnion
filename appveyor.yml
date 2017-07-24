@@ -8,8 +8,8 @@ image:
   Visual Studio 2017
 test: off  
 environment:
-  my_variable:
-    secure: MZ9z+oPwfhP0kB7gClRpCHYnBEWpBrTg0dN6HDdOg7VEw4t/AMFsofO71Wz7rFQs
+  nuget_api_key:
+    secure: Elfkt04yP1t9dML2prh0PSgSgNtl8cl2LIJe1t9pnblGcRfp6r6mN3m9yjmIc4af
 # deploy:
 # - provider: NuGet
 #   api_key:
