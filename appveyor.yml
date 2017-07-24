@@ -1,5 +1,7 @@
 environment:  
   version: 1.0.{build}
+  nuget_api_key:
+    secure: Elfkt04yP1t9dML2prh0PSgSgNtl8cl2LIJe1t9pnblGcRfp6r6mN3m9yjmIc4af
 assembly_info:  
   patch: false
 build_script:  
@@ -7,9 +9,6 @@ build_script:
 image: 
   Visual Studio 2017
 test: off  
-environment:
-  nuget_api_key:
-    secure: Elfkt04yP1t9dML2prh0PSgSgNtl8cl2LIJe1t9pnblGcRfp6r6mN3m9yjmIc4af
 # deploy:
 # - provider: NuGet
 #   api_key:
