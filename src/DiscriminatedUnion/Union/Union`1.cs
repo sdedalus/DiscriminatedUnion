@@ -37,5 +37,10 @@
 		/// <typeparam name="TReturn">The type of the return.</typeparam>
 		/// <returns></returns>
 		public ICase<T1, TReturn> Match<TReturn>() => new Match<T1, TReturn>(Value);
+
+		public override string ToString()
+		{
+			return base.ToString();
+		}
 	}
 }

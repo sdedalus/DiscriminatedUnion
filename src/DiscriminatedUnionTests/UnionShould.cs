@@ -25,6 +25,13 @@ namespace DiscriminatedUnionTests
 
 			var y = x.ToContainedType<object>();
 		}
+		
+		[Fact]
+		public void UnionToStringShouldReturnContainedValueToString()
+		{
+			Union<string, int> x = "Test";
+			Assert.Equal("Test", x.ToString());
+		}
 
 		[Fact]
 		public void InheritedFunctionalityTestNone()

@@ -55,5 +55,10 @@ namespace DiscriminatedUnion
 		///   <c>true</c> if [is] [the specified proposed type]; otherwise, <c>false</c>.
 		/// </returns>
 		public bool Is(Type proposedType) => proposedType == Value.ContainedValueType;
+
+		public override string ToString()
+		{
+			return Value.ToString();
+		}
 	}
 }

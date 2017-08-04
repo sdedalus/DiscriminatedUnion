@@ -54,5 +54,10 @@
 		/// The value as object.
 		/// </value>
 		public object ValueAsObject => ContainedValue;
+
+		public override string ToString()
+		{
+			return ContainedValue.ToString();
+		}
 	}
 }
