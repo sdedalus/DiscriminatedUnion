@@ -159,5 +159,6 @@
 		/// <typeparam name="TReturn">The type of the return.</typeparam>
 		/// <returns></returns>
 		public ICase<T1, T2, T3, T4, T5, T6, T7, TReturn> Match<TReturn>() => new Match<T1, T2, T3, T4, T5, T6, T7, TReturn>(Value);
+		public ICase<T1, T2, T3, T4, T5, T6, T7, Union<T1, T2, T3, T4, T5, T6, T7>> Match() => new Match<T1, T2, T3, T4, T5, T6, T7, Union<T1, T2, T3, T4, T5, T6, T7>>(Value);
 	}
 }

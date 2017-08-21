@@ -59,6 +59,28 @@ namespace DiscriminatedUnionTests
 			Assert.Equal("Test", value);
 		}
 
+
+		[Fact]
+		public void MatchWithoutType()
+		{
+			Union<string, int> x = "Test";
+
+			var value = x.Match()
+				.Case(a => a)
+				.Case(b => b.ToString())
+				.Default(() => "Nothing");
+
+			if(value.Is<string>(out var s))
+			{
+				Assert.Equal(s, "Test");
+			}
+			else
+			{
+				Assert.True(false);
+			}
+			
+		}
+
 		[Fact]
 		public void UnionTestModern()
 		{

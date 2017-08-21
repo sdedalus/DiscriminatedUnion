@@ -38,6 +38,8 @@
 		/// <returns></returns>
 		public ICase<T1, TReturn> Match<TReturn>() => new Match<T1, TReturn>(Value);
 
+		public ICase<T1, Union<T1>> Match() => new Match<T1, Union<T1>>(Value);
+
 		public override string ToString()
 		{
 			return base.ToString();

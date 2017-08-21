@@ -74,5 +74,7 @@
 		}
 
 		public ICase<T1, T2, T3, TReturn> Match<TReturn>() => new Match<T1, T2, T3, TReturn>(Value);
+
+		public ICase<T1, T2, T3, Union<T1, T2, T3>> Match() => new Match<T1, T2, T3, Union<T1, T2, T3>>(Value);
 	}
 }
