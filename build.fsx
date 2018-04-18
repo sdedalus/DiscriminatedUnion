@@ -41,8 +41,12 @@ module Targets =
   )
 
   Target "RestorePackages" (fun _ ->
-    packages
-    |> Seq.iter (RestorePackage (fun p -> {p with OutputPath = "./packages"}))
+    "./DiscriminatedUnion.sln"
+     |> RestoreMSSolutionPackages (fun p ->
+         { p with
+             Sources = "https://api.nuget.org/v3/index.json" :: p.Sources
+             OutputPath = "packages"
+             Retries = 4 })
   )
 
   // Target "Build" (fun() ->
