@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>2.0.0</Version>
+    <Authors>David Lewis</Authors>
+    <Company>David Lewis</Company>
+    <Description>Adds Json Serialisation support for Discriminated Union implementation for C#
+</Description>
+    <Copyright>2018 David Lewis</Copyright>
+    <PackageLicenseUrl>https://github.com/sdedalus/ProjectLicence/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/sdedalus/DiscriminatedUnion</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/sdedalus/DiscriminatedUnion</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>Discriminated, Union, Standard, Functional, Type, Json</PackageTags>
+    <PackageReleaseNotes>Updated the project to .Net Standard 1.1</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DiscriminatedUnion.Core\DiscriminatedUnion.Core.csproj" />
+  </ItemGroup>
+
+</Project>

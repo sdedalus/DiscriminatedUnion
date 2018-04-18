@@ -1,0 +1,115 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.1</TargetFramework>
+    <Version>2.0.0</Version>
+    <Authors>David Lewis</Authors>
+    <Company>David Lewis</Company>
+    <Description># DiscriminatedUnion
+Implementation of Discriminated Union and Pattern Matching in C#.
+
+```csharp
+string outputValue = x.Match&lt;String&gt;()
+						.Case(c =&gt; c == "Test", v =&gt; "It's Test!")
+						.Case(v =&gt; "It's Not Test!")
+						.Else(() =&gt; "It's None!")
+```
+or 
+```csharp
+var x = new Union&lt;string, int&gt;(100);
+
+// the type annotations below are optional and only added for clerity.
+string value = x.Match&lt;string&gt;()
+	.Case((string v) =&gt; v)
+	.Case((int c) =&gt; c == 100, (int v) =&gt; "Keeping It 100.")
+	.Case((int v) =&gt; "Tea?")
+	.Else(() =&gt; "Nothing");
+
+Assert.Equal("Keeping It 100.", value);
+```</Description>
+    <Copyright>2018 David Lewis</Copyright>
+    <PackageLicenseUrl>https://github.com/sdedalus/ProjectLicence/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/sdedalus/DiscriminatedUnion</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/sdedalus/DiscriminatedUnion</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>Discriminated, Union, Standard, Functional, Type</PackageTags>
+    <PackageReleaseNotes>Updated the project to .Net Standard 1.1</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="TypedContainer\Union\**" />
+    <EmbeddedResource Remove="TypedContainer\Union\**" />
+    <None Remove="TypedContainer\Union\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ICase.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ICase.cs</LastGenOutput>
+    </None>
+    <None Update="Match.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Match.cs</LastGenOutput>
+    </None>
+    <None Update="ToErrorUnion.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ToErrorUnion.cs</LastGenOutput>
+    </None>
+    <None Update="ToUnionOfSubTypes.tt">
+      <LastGenOutput>ToUnionOfSubTypes.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="CreateMap.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CreateMap.cs</LastGenOutput>
+    </None>
+    <None Update="Union.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Union.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ICase.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ICase.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Match.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Match.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ToErrorUnion.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ToErrorUnion.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ToUnionOfSubTypes.cs">
+      <DependentUpon>ToUnionOfSubTypes - Copy.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="ToUnionOfSubTypes.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ToUnionOfSubTypes.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CreateMap.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CreateMap.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Union.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Union.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

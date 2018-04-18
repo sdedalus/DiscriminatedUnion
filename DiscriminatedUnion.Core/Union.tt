@@ -1,0 +1,51 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+string GenericType(int arity) => $"T{arity.ToString()}";
+
+string GenericTypes(int arity) => string.Join(",", Enumerable.Range(1, arity).Select(x => GenericType(x)));
+#>
+namespace DiscriminatedUnion
+{<#
+foreach(var item in Enumerable.Range(1,16))
+{#>
+
+//<#= GenericTypes(item) #> 
+	public class <#="Union"#><<#=GenericTypes(item)#>> : UnionBase
+	{
+		public <#="Union"#>(ITypeContainer value) : base(value)
+		{ 
+		}
+
+		<#
+		foreach(var i in Enumerable.Range(1,item))
+		{#>
+
+		public <#="Union"#>(<#= GenericType(i) #> value) : base(new TypedContainer<<#= GenericType(i) #>>(value))
+		{
+		}
+
+		public static implicit operator <#="Union"#><<#= GenericTypes(item) #>>(<#= GenericType(i) #> item)
+		{
+			return new Union<<#= GenericTypes(item) #>>(item);
+		}
+		<#
+		}#>
+
+		public ICase<<#= GenericTypes(item) #>, TReturn> Match<TReturn>() => new Match<<#= GenericTypes(item) #>, TReturn>(Value);
+
+		public ICase<<#= GenericTypes(item) #>, Union<<#= GenericTypes(item) #>>> Match() => new Match<<#= GenericTypes(item) #>, Union<<#= GenericTypes(item) #>>>(Value);
+
+		public override string ToString()
+		{
+			return base.ToString();
+		}
+	}
+
+<#
+}
+#>}

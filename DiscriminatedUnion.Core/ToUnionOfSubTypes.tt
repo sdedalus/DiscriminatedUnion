@@ -1,0 +1,39 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+string GenericType(int arity) => $"TSub{arity.ToString()}";
+
+string GenericTypes(int arity) => string.Join(",", Enumerable.Range(1, arity).Select(x => GenericType(x)));
+
+string GenericConstraints(int arity) => string.Join("\n			", Enumerable.Range(1, arity).Select(x => $"where {GenericType(x)} : TBase"));
+
+string GenericCases(int arity) => string.Join("\n				", Enumerable.Range(1, arity).Select(x => $".Case(c => c.GetType() == typeof({GenericType(x)}), v => ({GenericType(x)})v)"));
+#>
+namespace DiscriminatedUnion
+{
+	using System;
+	/// <summary>
+	/// Nice ways to work with a Union type.
+	/// </summary>
+	public static partial class Union
+	{
+<#
+foreach(var item in Enumerable.Range(1,15))
+{#>
+		public static Union<<#=GenericTypes(item)#>, TBase> ToUnionOfSubTypes<TBase, <#=GenericTypes(item)#>>(this TBase baseClass)
+			where TBase : class
+			<#=GenericConstraints(item)#>
+		{
+			return MatchExtensions.Match<TBase, Union<<#=GenericTypes(item)#>, TBase>>(baseClass)
+				<#=GenericCases(item)#>
+				.Case(v => v)
+				.Default(() => null);
+		}
+<#
+}#>
+	}
+}
