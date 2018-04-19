@@ -40,14 +40,9 @@ module Targets =
     CleanDirs [buildDir; deployDir; testDir]
   )
 
-  Target "RestorePackages" (fun _ ->
-    "./DiscriminatedUnion.sln"
-     |> RestoreMSSolutionPackages (fun p ->
-         { p with
-             Sources = "https://api.nuget.org/v3/index.json" :: p.Sources
-             OutputPath = "packages"
-             Retries = 4 })
-  )
+  //Target "RestorePackages" (fun _ ->
+  //  Process.Shell.Exec "dotnet" "restore" dir
+  //)
 
   // Target "Build" (fun() ->
   //   projects
@@ -112,7 +107,7 @@ module Targets =
   Target "Default" (fun _ -> ())
   
 "Clean"
-==> "RestorePackages"
+//==> "RestorePackages"
 ==> "Build"
 ==> "BuildTest"
 //==> "Test"
