@@ -49,12 +49,11 @@ module Targets =
   //   |> Seq.iter build
   
   Target "Build" (fun() ->
-    MSBuildRelease buildDir "Build" solution
+    MSBuildRelease buildDir "Build" solution 
     |> ignore
   )
   
-  Target "BuildTest" (fun() ->
-     
+  Target "BuildTest" (fun() ->     
     MSBuild testDir "Build" [ "Configuration", "Test" ] solution
     |> ignore
   )
