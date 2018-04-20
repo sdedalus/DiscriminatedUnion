@@ -108,7 +108,7 @@ module Targets =
 "Clean"
 //==> "RestorePackages"
 ==> "Build"
-==> "BuildTest"
+//==> "BuildTest"
 //==> "Test"
 ==> "CopyMain"
 ==> "DeployNuGet"
