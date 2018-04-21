@@ -40,20 +40,26 @@ module Targets =
     CleanDirs [buildDir; deployDir; testDir]
   )
 
-  //Target "RestorePackages" (fun _ ->
-  //  Process.Shell.Exec "dotnet" "restore" dir
-  //)
+  Target "RestorePackages" (fun _ ->
+    "./DiscriminatedUnion.sln"
+     |> RestoreMSSolutionPackages (fun p ->
+         { p with
+             Sources = "https://api.nuget.org/v3/index.json" :: p.Sources
+             OutputPath = "packages"
+             Retries = 4 })
+  )
 
   // Target "Build" (fun() ->
   //   projects
   //   |> Seq.iter build
   
   Target "Build" (fun() ->
-    MSBuildRelease buildDir "Build" solution 
+    MSBuildRelease buildDir "Build" solution
     |> ignore
   )
   
-  Target "BuildTest" (fun() ->     
+  Target "BuildTest" (fun() ->
+     
     MSBuild testDir "Build" [ "Configuration", "Test" ] solution
     |> ignore
   )
@@ -106,9 +112,9 @@ module Targets =
   Target "Default" (fun _ -> ())
   
 "Clean"
-//==> "RestorePackages"
+==> "RestorePackages"
 ==> "Build"
-//==> "BuildTest"
+==> "BuildTest"
 //==> "Test"
 ==> "CopyMain"
 ==> "DeployNuGet"
