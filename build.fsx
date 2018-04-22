@@ -41,7 +41,7 @@ module Targets =
   )
 
   Target "RestorePackages" (fun _ ->
-    "./DiscriminatedUnion.sln"
+    "DiscriminatedUnion.sln"
      |> RestoreMSSolutionPackages (fun p ->
          { p with
              Sources = "https://api.nuget.org/v3/index.json" :: p.Sources
@@ -114,7 +114,7 @@ module Targets =
 "Clean"
 ==> "RestorePackages"
 ==> "Build"
-==> "BuildTest"
+//==> "BuildTest"
 //==> "Test"
 ==> "CopyMain"
 ==> "DeployNuGet"
