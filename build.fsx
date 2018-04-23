@@ -112,7 +112,7 @@ module Targets =
   Target "Default" (fun _ -> ())
   
 "Clean"
-==> "RestorePackages"
+//==> "RestorePackages"
 ==> "Build"
 //==> "BuildTest"
 //==> "Test"
