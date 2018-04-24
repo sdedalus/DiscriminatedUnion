@@ -1,6 +1,7 @@
 ﻿namespace DiscriminatedUnion
 {
 	using System;
+
 	/// <summary>
 	/// Nice ways to work with a Union type.
 	/// </summary>

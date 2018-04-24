@@ -41,34 +41,25 @@ module Targets =
   )
 
   Target "RestorePackages" (fun _ ->
-    "DiscriminatedUnion.sln"
-     |> RestoreMSSolutionPackages (fun p ->
-         { p with
-             Sources = "https://api.nuget.org/v3/index.json" :: p.Sources
-             OutputPath = "packages"
-             Retries = 4 })
+    DotNetCli.Restore |> ignore
   )
-
-  // Target "Build" (fun() ->
-  //   projects
-  //   |> Seq.iter build
   
   Target "Build" (fun() ->
-    MSBuildRelease buildDir "Build" solution
-    |> ignore
+     DotNetCli.Build |> ignore
+
+     DotNetCli.Pack |> ignore
   )
   
   Target "BuildTest" (fun() ->
-     
-    MSBuild testDir "Build" [ "Configuration", "Test" ] solution
-    |> ignore
+     DotNetCli.Build |> ignore
+
+     DotNetCli.Pack |> ignore
   )
 
   Target "CopyMain" (fun _ ->
     let targetDir = deployDir
     CreateDir targetDir
     CopyDir targetDir buildDir (fun x -> x.EndsWith(".nupkg"))
-    //sourceFiles |> Seq.iter (CopyFile targetDir) 
   )
   
   Target "DeployNuGet" (fun _ ->
@@ -117,7 +108,7 @@ module Targets =
 //==> "BuildTest"
 //==> "Test"
 ==> "CopyMain"
-==> "DeployNuGet"
+//==> "DeployNuGet"
 ==> "Default"
 
 RunTargetOrDefault "Default"
