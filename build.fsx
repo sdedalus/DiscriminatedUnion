@@ -45,24 +45,23 @@ module Targets =
   )
   
   Target "Build" (fun() ->
-     DotNetCli.Build (fun p -> { p with Configuration = "Release" }) |> ignore
+    DotNetCli.Build (fun p -> { p with Configuration = "Release"; Output = buildDir }) |> ignore
 
-     DotNetCli.Pack (fun p -> { p with Configuration = "Release" }) |> ignore
+    DotNetCli.Pack (fun p -> { p with Configuration = "Release"; OutputPath = deployDir }) |> ignore
   )
   
   Target "BuildTest" (fun() ->
-     DotNetCli.Build (fun p -> { p with Configuration = "Debug" }) |> ignore
+     CreateDir testDir
+     DotNetCli.Build (fun p -> { p with Configuration = "Debug"; Output = testDir }) |> ignore
   )
-
     
   Target "Test" (fun() ->
      DotNetCli.Test |> ignore
   )
 
   Target "CopyMain" (fun _ ->
-    let targetDir = deployDir
-    CreateDir targetDir
-    CopyDir targetDir "./" (fun x -> x.Contains(".nupkg"))
+    CreateDir deployDir
+    CopyDir deployDir buildDir (fun x -> x.Contains(".nupkg"))
   )
   
   Target "DeployNuGet" (fun _ ->
