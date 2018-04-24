@@ -41,25 +41,28 @@ module Targets =
   )
 
   Target "RestorePackages" (fun _ ->
-    DotNetCli.Restore |> ignore
+    DotNetCli.Restore(fun p -> { p with NoCache = true }) |> ignore
   )
   
   Target "Build" (fun() ->
-     DotNetCli.Build |> ignore
+     DotNetCli.Build (fun p -> { p with Configuration = "Release" }) |> ignore
 
-     DotNetCli.Pack |> ignore
+     DotNetCli.Pack (fun p -> { p with Configuration = "Release" }) |> ignore
   )
   
   Target "BuildTest" (fun() ->
-     DotNetCli.Build |> ignore
+     DotNetCli.Build (fun p -> { p with Configuration = "Debug" }) |> ignore
+  )
 
-     DotNetCli.Pack |> ignore
+    
+  Target "Test" (fun() ->
+     DotNetCli.Test |> ignore
   )
 
   Target "CopyMain" (fun _ ->
     let targetDir = deployDir
     CreateDir targetDir
-    CopyDir targetDir buildDir (fun x -> x.EndsWith(".nupkg"))
+    CopyDir targetDir "./" (fun x -> x.Contains(".nupkg"))
   )
   
   Target "DeployNuGet" (fun _ ->
@@ -104,11 +107,11 @@ module Targets =
   
 "Clean"
 //==> "RestorePackages"
+==> "BuildTest"
+==> "Test"
 ==> "Build"
-//==> "BuildTest"
-//==> "Test"
 ==> "CopyMain"
-//==> "DeployNuGet"
+==> "DeployNuGet"
 ==> "Default"
 
 RunTargetOrDefault "Default"
