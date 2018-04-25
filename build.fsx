@@ -51,8 +51,8 @@ module Targets =
   )
   
   Target "BuildTest" (fun() ->
-     CreateDir testDir
-     DotNetCli.Build (fun p -> { p with Configuration = "Debug"; Output = testDir }) |> ignore
+    CreateDir testDir
+    DotNetCli.Build (fun p -> { p with Configuration = "Debug"; Output = testDir }) |> ignore
   )
     
   Target "Test" (fun() ->

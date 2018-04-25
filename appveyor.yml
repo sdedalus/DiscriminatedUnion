@@ -1,5 +1,5 @@
 environment:  
-  version: 2.0.{build}
+  version: 2.0
   nuget_api_key:
     secure: Elfkt04yP1t9dML2prh0PSgSgNtl8cl2LIJe1t9pnblGcRfp6r6mN3m9yjmIc4af
 assembly_info:  
