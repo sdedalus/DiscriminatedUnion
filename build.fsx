@@ -9,10 +9,10 @@ open System.IO
 
 [<AutoOpen>]
 module Settings =
-  let buildDir = "./.build/"
-  let packagingDir = buildDir + "BuildOutput/"
-  let deployDir = "./.deploy/"
-  let testDir = "./.test/"
+  let buildDir = currentDirectory + "/.build/"
+  //let packagingDir = buildDir + "BuildOutput/"
+  let deployDir = currentDirectory + "/.deploy/"
+  let testDir = currentDirectory + "/.test/"
   let projects = !! "**/*.csproj" -- "**/*.Tests.csproj"
   let testProjects = !! "**/*Tests.csproj"
   let packages = !! "./**/packages.config"
@@ -45,8 +45,12 @@ module Targets =
   )
   
   Target "Build" (fun() ->
+    CreateDir buildDir
     DotNetCli.Build (fun p -> { p with Configuration = "Release"; Output = buildDir }) |> ignore
-
+  )
+    
+  Target "Pack" (fun() ->
+    CreateDir deployDir
     DotNetCli.Pack (fun p -> { p with Configuration = "Release"; OutputPath = deployDir }) |> ignore
   )
   
@@ -105,7 +109,7 @@ module Targets =
   Target "Default" (fun _ -> ())
   
 "Clean"
-//==> "RestorePackages"
+==> "RestorePackages"
 ==> "BuildTest"
 ==> "Test"
 ==> "Build"
