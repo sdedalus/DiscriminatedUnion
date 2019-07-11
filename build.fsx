@@ -78,7 +78,7 @@ module Targets =
       { nugetParams with
           AccessKey = nuGetApiKey
           PublishUrl = nuGetUrl
-          Project = "DiscriminatedUnion.Core"
+          Project = "DiscriminatedUnion"
           Version = version
           WorkingDir = deployDir 
           OutputPath = deployDir 
