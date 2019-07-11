@@ -38,7 +38,8 @@ foreach(var item in Enumerable.Range(1,16))
 		}
 		<#
 		}#>
-		
+
+#if NETSTANDARD3_0		
         public void Deconstruct(<#= ChoicesSigniture(item)#>)
         {
 <#
@@ -48,6 +49,7 @@ foreach(var item in Enumerable.Range(1,16))
 <#
 		}#>
         }
+#endif
 
 		public ICase<<#= GenericTypes(item) #>, TReturn> Match<TReturn>() => new Match<<#= GenericTypes(item) #>, TReturn>(Value);
 

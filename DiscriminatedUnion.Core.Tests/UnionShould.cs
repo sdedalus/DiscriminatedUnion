@@ -19,15 +19,16 @@ namespace DiscriminatedUnionTests
 				.Default(() => "It's None!"));
 		}
 
-		////[TestMethod]
-		////public void TypedContainerTest()
-		////{
-		////	ITypeContainer x = (Container<string>)"Testing";
-
-		////	var y = x.ToContainedType<object>();
-		////}
-		
+#if NETSTANDARD3_0
 		[TestMethod]
+		public void TypedContainerTest()
+		{
+			ITypeContainer x = (Container<string>)"Testing";
+
+			var y = x.ToContainedType<object>();
+		}
+#endif
+        [TestMethod]
 		public void UnionToStringShouldReturnContainedValueToString()
 		{
 			Union<string, int> x = "Test";
@@ -98,21 +99,21 @@ namespace DiscriminatedUnionTests
 			}
 			Assert.AreEqual("Test", value);
 		}
-
-        ////[TestMethod]
-        ////public void UnionTestModern2()
-        ////{
-        ////    Union<string, int> x = "Test";
-        ////    string value = x
-        ////    switch
-        ////    {
-        ////        ( var s, _) => s,
-        ////        (_, var i) => i.ToString()
+#if NETSTANDARD3_0
+        [TestMethod]
+        public void UnionTestModern2()
+        {
+            Union<string, int> x = "Test";
+            string value = x
+            switch
+            {
+                ( var s, _) => s,
+                (_, var i) => i.ToString()
                     
-        ////    }
-        ////    Assert.AreEqual("Test", value);
-        ////}
-
+            }
+            Assert.AreEqual("Test", value);
+        }
+#endif
         [TestMethod]
 		public void UnionTestShortcut()
 		{
@@ -371,11 +372,13 @@ namespace DiscriminatedUnionTests
 			Assert.IsTrue(oneAgain.Is<StateOne>());
 		}
 
+#if NETSTANDARD3_0
 		////[TestMethod]
 		////public void TestWeird()
 		////{
 		////	Weird x = 100;
 		////}
+#endif
 
 		public class Weird : Union<Union<int, string>>
 		{

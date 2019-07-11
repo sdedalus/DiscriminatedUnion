@@ -16,11 +16,13 @@
 		{
 			return new Union<T1>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1)
         {
             this.Is(out choice1);
         }
+#endif
 
 		public ICase<T1, TReturn> Match<TReturn>() => new Match<T1, TReturn>(Value);
 
@@ -36,8 +38,8 @@
 //T1,T2 
 	public class Union<T1,T2> : UnionBase
 	{
-        public Union(ITypeContainer value) : base(value)
-        {
+		public Union(ITypeContainer value) : base(value)
+		{
 		}
 
 		
@@ -58,12 +60,14 @@
 		{
 			return new Union<T1,T2>(item);
 		}
-				
-        ////public void Deconstruct(out T1? choice1, out T2? choice2)
-        ////{
-        ////    this.Is(out choice1);
-        ////    this.Is(out choice2);
-        ////}
+		
+#if NETSTANDARD3_0		
+        public void Deconstruct(out T1 choice1, out T2 choice2)
+        {
+            this.Is(out choice1);
+            this.Is(out choice2);
+        }
+#endif
 
 		public ICase<T1,T2, TReturn> Match<TReturn>() => new Match<T1,T2, TReturn>(Value);
 
@@ -110,13 +114,15 @@
 		{
 			return new Union<T1,T2,T3>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1, out T2 choice2, out T3 choice3)
         {
             this.Is(out choice1);
             this.Is(out choice2);
             this.Is(out choice3);
         }
+#endif
 
 		public ICase<T1,T2,T3, TReturn> Match<TReturn>() => new Match<T1,T2,T3, TReturn>(Value);
 
@@ -172,7 +178,8 @@
 		{
 			return new Union<T1,T2,T3,T4>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1, out T2 choice2, out T3 choice3, out T4 choice4)
         {
             this.Is(out choice1);
@@ -180,6 +187,7 @@
             this.Is(out choice3);
             this.Is(out choice4);
         }
+#endif
 
 		public ICase<T1,T2,T3,T4, TReturn> Match<TReturn>() => new Match<T1,T2,T3,T4, TReturn>(Value);
 
@@ -244,7 +252,8 @@
 		{
 			return new Union<T1,T2,T3,T4,T5>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1, out T2 choice2, out T3 choice3, out T4 choice4, out T5 choice5)
         {
             this.Is(out choice1);
@@ -253,6 +262,7 @@
             this.Is(out choice4);
             this.Is(out choice5);
         }
+#endif
 
 		public ICase<T1,T2,T3,T4,T5, TReturn> Match<TReturn>() => new Match<T1,T2,T3,T4,T5, TReturn>(Value);
 
@@ -326,7 +336,8 @@
 		{
 			return new Union<T1,T2,T3,T4,T5,T6>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1, out T2 choice2, out T3 choice3, out T4 choice4, out T5 choice5, out T6 choice6)
         {
             this.Is(out choice1);
@@ -336,6 +347,7 @@
             this.Is(out choice5);
             this.Is(out choice6);
         }
+#endif
 
 		public ICase<T1,T2,T3,T4,T5,T6, TReturn> Match<TReturn>() => new Match<T1,T2,T3,T4,T5,T6, TReturn>(Value);
 
@@ -418,7 +430,8 @@
 		{
 			return new Union<T1,T2,T3,T4,T5,T6,T7>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1, out T2 choice2, out T3 choice3, out T4 choice4, out T5 choice5, out T6 choice6, out T7 choice7)
         {
             this.Is(out choice1);
@@ -429,6 +442,7 @@
             this.Is(out choice6);
             this.Is(out choice7);
         }
+#endif
 
 		public ICase<T1,T2,T3,T4,T5,T6,T7, TReturn> Match<TReturn>() => new Match<T1,T2,T3,T4,T5,T6,T7, TReturn>(Value);
 
@@ -520,7 +534,8 @@
 		{
 			return new Union<T1,T2,T3,T4,T5,T6,T7,T8>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1, out T2 choice2, out T3 choice3, out T4 choice4, out T5 choice5, out T6 choice6, out T7 choice7, out T8 choice8)
         {
             this.Is(out choice1);
@@ -532,6 +547,7 @@
             this.Is(out choice7);
             this.Is(out choice8);
         }
+#endif
 
 		public ICase<T1,T2,T3,T4,T5,T6,T7,T8, TReturn> Match<TReturn>() => new Match<T1,T2,T3,T4,T5,T6,T7,T8, TReturn>(Value);
 
@@ -632,7 +648,8 @@
 		{
 			return new Union<T1,T2,T3,T4,T5,T6,T7,T8,T9>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1, out T2 choice2, out T3 choice3, out T4 choice4, out T5 choice5, out T6 choice6, out T7 choice7, out T8 choice8, out T9 choice9)
         {
             this.Is(out choice1);
@@ -645,6 +662,7 @@
             this.Is(out choice8);
             this.Is(out choice9);
         }
+#endif
 
 		public ICase<T1,T2,T3,T4,T5,T6,T7,T8,T9, TReturn> Match<TReturn>() => new Match<T1,T2,T3,T4,T5,T6,T7,T8,T9, TReturn>(Value);
 
@@ -754,7 +772,8 @@
 		{
 			return new Union<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1, out T2 choice2, out T3 choice3, out T4 choice4, out T5 choice5, out T6 choice6, out T7 choice7, out T8 choice8, out T9 choice9, out T10 choice10)
         {
             this.Is(out choice1);
@@ -768,6 +787,7 @@
             this.Is(out choice9);
             this.Is(out choice10);
         }
+#endif
 
 		public ICase<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10, TReturn> Match<TReturn>() => new Match<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10, TReturn>(Value);
 
@@ -886,7 +906,8 @@
 		{
 			return new Union<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1, out T2 choice2, out T3 choice3, out T4 choice4, out T5 choice5, out T6 choice6, out T7 choice7, out T8 choice8, out T9 choice9, out T10 choice10, out T11 choice11)
         {
             this.Is(out choice1);
@@ -901,6 +922,7 @@
             this.Is(out choice10);
             this.Is(out choice11);
         }
+#endif
 
 		public ICase<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11, TReturn> Match<TReturn>() => new Match<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11, TReturn>(Value);
 
@@ -1028,7 +1050,8 @@
 		{
 			return new Union<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1, out T2 choice2, out T3 choice3, out T4 choice4, out T5 choice5, out T6 choice6, out T7 choice7, out T8 choice8, out T9 choice9, out T10 choice10, out T11 choice11, out T12 choice12)
         {
             this.Is(out choice1);
@@ -1044,6 +1067,7 @@
             this.Is(out choice11);
             this.Is(out choice12);
         }
+#endif
 
 		public ICase<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12, TReturn> Match<TReturn>() => new Match<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12, TReturn>(Value);
 
@@ -1180,7 +1204,8 @@
 		{
 			return new Union<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1, out T2 choice2, out T3 choice3, out T4 choice4, out T5 choice5, out T6 choice6, out T7 choice7, out T8 choice8, out T9 choice9, out T10 choice10, out T11 choice11, out T12 choice12, out T13 choice13)
         {
             this.Is(out choice1);
@@ -1197,6 +1222,7 @@
             this.Is(out choice12);
             this.Is(out choice13);
         }
+#endif
 
 		public ICase<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13, TReturn> Match<TReturn>() => new Match<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13, TReturn>(Value);
 
@@ -1342,7 +1368,8 @@
 		{
 			return new Union<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1, out T2 choice2, out T3 choice3, out T4 choice4, out T5 choice5, out T6 choice6, out T7 choice7, out T8 choice8, out T9 choice9, out T10 choice10, out T11 choice11, out T12 choice12, out T13 choice13, out T14 choice14)
         {
             this.Is(out choice1);
@@ -1360,6 +1387,7 @@
             this.Is(out choice13);
             this.Is(out choice14);
         }
+#endif
 
 		public ICase<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14, TReturn> Match<TReturn>() => new Match<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14, TReturn>(Value);
 
@@ -1514,7 +1542,8 @@
 		{
 			return new Union<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1, out T2 choice2, out T3 choice3, out T4 choice4, out T5 choice5, out T6 choice6, out T7 choice7, out T8 choice8, out T9 choice9, out T10 choice10, out T11 choice11, out T12 choice12, out T13 choice13, out T14 choice14, out T15 choice15)
         {
             this.Is(out choice1);
@@ -1533,6 +1562,7 @@
             this.Is(out choice14);
             this.Is(out choice15);
         }
+#endif
 
 		public ICase<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15, TReturn> Match<TReturn>() => new Match<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15, TReturn>(Value);
 
@@ -1696,7 +1726,8 @@
 		{
 			return new Union<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16>(item);
 		}
-				
+		
+#if NETSTANDARD3_0		
         public void Deconstruct(out T1 choice1, out T2 choice2, out T3 choice3, out T4 choice4, out T5 choice5, out T6 choice6, out T7 choice7, out T8 choice8, out T9 choice9, out T10 choice10, out T11 choice11, out T12 choice12, out T13 choice13, out T14 choice14, out T15 choice15, out T16 choice16)
         {
             this.Is(out choice1);
@@ -1716,6 +1747,7 @@
             this.Is(out choice15);
             this.Is(out choice16);
         }
+#endif
 
 		public ICase<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16, TReturn> Match<TReturn>() => new Match<T1,T2,T3,T4,T5,T6,T7,T8,T9,T10,T11,T12,T13,T14,T15,T16, TReturn>(Value);
 
