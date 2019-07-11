@@ -30,9 +30,10 @@ module Settings =
     MSBuildRelease outputDir "Build" [proj] 
     |> Log "Build-Output: "
   
-  let getVersion() =
-    let buildCandidate = (environVar "APPVEYOR_BUILD_NUMBER")
-    if buildCandidate = "" || buildCandidate = null then "2.0.0" else (sprintf "2.0.0.%s" buildCandidate)
+  let buildCandidate = if (environVar "APPVEYOR_BUILD_NUMBER") = "" || (environVar "APPVEYOR_BUILD_NUMBER") = null then "0" else (environVar "APPVEYOR_BUILD_NUMBER")
+  let getVersion() = (sprintf "2.0.0.%s" buildCandidate)
+
+let version = getVersion()
 
 [<AutoOpen>]
 module Targets =
@@ -46,16 +47,17 @@ module Targets =
   
   Target "Build" (fun() ->
     CreateDir buildDir
-    DotNetCli.Build (fun p -> { p with Configuration = "Release"; Output = buildDir }) |> ignore
+    DotNetCli.Build (fun p -> { p with Configuration = "Release"; Output = buildDir; }) |> ignore
   )
     
   Target "Pack" (fun() ->
     CreateDir deployDir
-    DotNetCli.Pack (fun p -> { p with Configuration = "Release"; OutputPath = deployDir }) |> ignore
+    DotNetCli.Pack (fun p -> { p with Configuration = "Release"; OutputPath = deployDir; VersionSuffix=buildCandidate }) |> ignore
   )
   
   Target "BuildTest" (fun() ->
     CreateDir testDir
+    DotNetCli.SetVersionInProjectJson version
     DotNetCli.Build (fun p -> { p with Configuration = "Debug"; Output = testDir }) |> ignore
   )
     
@@ -69,7 +71,7 @@ module Targets =
   )
   
   Target "DeployNuGet" (fun _ ->
-    let version = getVersion()
+    
     let nuGetUrl = "https://nuget.org"
 
     NuGetPublish (fun nugetParams -> 

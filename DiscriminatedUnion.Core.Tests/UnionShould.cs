@@ -1,5 +1,6 @@
 ﻿using System;
 using DiscriminatedUnion;
+using static DiscriminatedUnion.Discriminator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DiscriminatedUnionTests
@@ -18,13 +19,13 @@ namespace DiscriminatedUnionTests
 				.Default(() => "It's None!"));
 		}
 
-		[TestMethod]
-		public void TypedContainerTest()
-		{
-			ITypeContainer x = new TypedContainer<string>("Testing");
+		////[TestMethod]
+		////public void TypedContainerTest()
+		////{
+		////	ITypeContainer x = (Container<string>)"Testing";
 
-			var y = x.ToContainedType<object>();
-		}
+		////	var y = x.ToContainedType<object>();
+		////}
 		
 		[TestMethod]
 		public void UnionToStringShouldReturnContainedValueToString()
@@ -33,7 +34,7 @@ namespace DiscriminatedUnionTests
 			Assert.AreEqual("Test", x.ToString());
 		}
 
-		[TestMethod]
+        [TestMethod]
 		public void InheritedFunctionalityTestNone()
 		{
 			string value = null;
@@ -98,7 +99,21 @@ namespace DiscriminatedUnionTests
 			Assert.AreEqual("Test", value);
 		}
 
-		[TestMethod]
+        ////[TestMethod]
+        ////public void UnionTestModern2()
+        ////{
+        ////    Union<string, int> x = "Test";
+        ////    string value = x
+        ////    switch
+        ////    {
+        ////        ( var s, _) => s,
+        ////        (_, var i) => i.ToString()
+                    
+        ////    }
+        ////    Assert.AreEqual("Test", value);
+        ////}
+
+        [TestMethod]
 		public void UnionTestShortcut()
 		{
 			Union<string, int> x = 10;
@@ -220,7 +235,7 @@ namespace DiscriminatedUnionTests
 		[TestMethod]
 		public void UnionTest3_1()
 		{
-			Union<ItemType1, ItemType2, ItemType3> x = new ItemType3();
+			Union<ItemType1, ItemType2, ItemType3> x = Tag<ItemType3>("value3");
 
 			Assert.AreEqual("value3", x.Match<string>()
 				.Case(item => (string)item)
@@ -238,7 +253,7 @@ namespace DiscriminatedUnionTests
 		[TestMethod]
 		public void UnionTest4_1()
 		{
-			Union<ItemType1, ItemType2, ItemType3, ItemType4> x = new ItemType4();
+			Union<ItemType1, ItemType2, ItemType3, ItemType4> x = Tag<ItemType4>("value4");
 
 			Assert.AreEqual("value4", x.Match<string>()
 				.Case(item => item)
@@ -251,7 +266,7 @@ namespace DiscriminatedUnionTests
 		[TestMethod]
 		public void UnionTest5_1()
 		{
-			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5> x = Discriminator.Tag<ItemType5>("value15");
+			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5> x = Tag<ItemType5>("value15");
 
 			Assert.AreEqual("value15", x.Match<string>()
 				.Case(item => item)
@@ -265,7 +280,7 @@ namespace DiscriminatedUnionTests
 		[TestMethod]
 		public void UnionTest6_1()
 		{
-			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6> x = new ItemType6();
+			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6> x = Tag<ItemType6>("value6");
 
 			Assert.AreEqual("value6", x.Match<string>()
 				.Case(item => item)
@@ -280,7 +295,7 @@ namespace DiscriminatedUnionTests
 		[TestMethod]
 		public void UnionTest7_1()
 		{
-			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6, ItemType7> x = Discriminator.Tag<ItemType7>("value7");
+			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6, ItemType7> x = Tag<ItemType7>("value7");
 
 			Assert.AreEqual("value7", x.Match<string>()
 				.Case(item => item)
@@ -296,7 +311,7 @@ namespace DiscriminatedUnionTests
 		[TestMethod]
 		public void UnionTest8_1()
 		{
-			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6, ItemType7, ItemType8> x = new ItemType8();
+			Union<ItemType1, ItemType2, ItemType3, ItemType4, ItemType5, ItemType6, ItemType7, ItemType8> x = Tag<ItemType8>("value8");
 
 			Assert.AreEqual("value8", x.Match<string>()
 				.Case(item => item)
@@ -355,82 +370,65 @@ namespace DiscriminatedUnionTests
 
 			Assert.IsTrue(oneAgain.Is<StateOne>());
 		}
-		
+
+		////[TestMethod]
+		////public void TestWeird()
+		////{
+		////	Weird x = 100;
+		////}
+
+		public class Weird : Union<Union<int, string>>
+		{
+			public Weird(Union<int, string> value) : base(value){}
+
+			public static explicit operator Weird(Union<int, string> v)
+			{
+				throw new NotImplementedException();
+			}
+		}
+
 		public class StateOne : Tag<StateOne, string>
 		{
-			public StateOne(string value = "StateOne") : base(value)
-			{
-			}
 		}
 
 		public class StateTwo : Tag<StateTwo, string>
 		{
-			public StateTwo(string value = "StateTwo") : base(value)
-			{
-			}
 		}
 
 		public class StateThree : Tag<StateThree, string>
 		{
-			public StateThree(string value = "StateThree") : base(value)
-			{
-			}
 		}
 
 		public class ItemType1 : Tag<ItemType1, string>
 		{
-			public ItemType1(string value = "value1") : base(value)
-			{
-			}
 		}
 
 		public class ItemType2 : Tag<ItemType2, string>
 		{
-			public ItemType2(string value = "value2") : base(value)
-			{
-			}
 		}
 
 		public class ItemType3 : Tag<ItemType3, string>
 		{
-			public ItemType3(string value = "value3") : base(value)
-			{
-			}
 		}
 
 		public class ItemType4 : Tag<ItemType4, string>
 		{
-			public ItemType4(string value = "value4") : base(value)
-			{
-			}
 		}
 
 		public class ItemType5 : Tag<ItemType5, string>
 		{
-			public ItemType5(string value = "value5") : base(value)
-			{
-			}
 		}
 
 		public class ItemType6 : Tag<ItemType6, string>
 		{
-			public ItemType6(string value = "value6") : base(value)
-			{
-			}
 		}
 
 		public class ItemType7 : Tag<ItemType7, string>
 		{
-			public ItemType7(string value = "value7") : base(value)
-			{
-			}
 		}
 
 		public class ItemType8 : Tag<ItemType8, string>
 		{
-			public ItemType8(string value = "value8") : base(value)
-			{
-			}
 		}
 	}
 }

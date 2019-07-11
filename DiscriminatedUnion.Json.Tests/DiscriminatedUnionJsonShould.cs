@@ -1,5 +1,6 @@
 ﻿using DiscriminatedUnion;
 using DiscriminatedUnion.Json;
+using static DiscriminatedUnion.Discriminator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 
@@ -33,7 +34,7 @@ namespace DiscriminatedUnion.Json.Tests
 		[TestMethod]
 		public void Test3()
 		{
-			Union<Address, Email> testUnion = new Email("Test@test.com");
+			Union<Address, Email> testUnion = Tag<Email>("Test@test.com");
 			string json = JsonConvert.SerializeObject(testUnion, Formatting.Indented, new UnionJsonConverterKeyed<Union<Address, Email>>());
 
 			Union<Address, Email> testUnionReturn = JsonConvert.DeserializeObject<Union<Address, Email>>(json, new UnionJsonConverterKeyed<Union<Address, Email>>());
@@ -44,9 +45,6 @@ namespace DiscriminatedUnion.Json.Tests
 
 	public class Email : Tag<Email, string>
 	{
-		public Email(string value) : base(value)
-		{
-		}
 	}
 
 	public class Address

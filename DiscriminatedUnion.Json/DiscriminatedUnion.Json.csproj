@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>2.0.0</Version>
+    <Version>2.0.0.1</Version>
     <Authors>David Lewis</Authors>
     <Company>David Lewis</Company>
     <Description>Adds Json Serialisation support for Discriminated Union implementation for C#
@@ -15,6 +15,9 @@
     <RepositoryType>Git</RepositoryType>
     <PackageTags>Discriminated, Union, Standard, Functional, Type, Json</PackageTags>
     <PackageReleaseNotes>Updated the project to .Net Standard 1.1</PackageReleaseNotes>
+    <AssemblyVersion>2.0.0.1</AssemblyVersion>
+    <FileVersion>2.0.0.1</FileVersion>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

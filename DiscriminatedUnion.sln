@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28516.95
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".common", ".common", "{44543414-0D9F-4A3A-8847-363C21BDD1C5}"
 	ProjectSection(SolutionItems) = preProject
@@ -25,6 +25,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscriminatedUnion.Json.Tests", "DiscriminatedUnion.Json.Tests\DiscriminatedUnion.Json.Tests.csproj", "{AFA9AE3D-4757-43E8-A24D-3CE3FB27B652}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscriminatedUnion.AutoMap.Tests", "DiscriminatedUnion.AutoMap.Tests\DiscriminatedUnion.AutoMap.Tests.csproj", "{463BB507-02D6-4BC3-9BF5-43DE49D72E42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscriminatedUnion", "DiscriminatedUnion\DiscriminatedUnion.csproj", "{EF42A0BC-304F-41D7-BEBD-7326547E2736}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -183,6 +185,30 @@ Global
 		{463BB507-02D6-4BC3-9BF5-43DE49D72E42}.Test|x64.Build.0 = Debug|Any CPU
 		{463BB507-02D6-4BC3-9BF5-43DE49D72E42}.Test|x86.ActiveCfg = Debug|Any CPU
 		{463BB507-02D6-4BC3-9BF5-43DE49D72E42}.Test|x86.Build.0 = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Debug|ARM.Build.0 = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Debug|x64.Build.0 = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Debug|x86.Build.0 = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Release|ARM.ActiveCfg = Release|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Release|ARM.Build.0 = Release|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Release|x64.ActiveCfg = Release|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Release|x64.Build.0 = Release|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Release|x86.ActiveCfg = Release|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Release|x86.Build.0 = Release|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Test|ARM.ActiveCfg = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Test|ARM.Build.0 = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Test|x64.ActiveCfg = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Test|x64.Build.0 = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Test|x86.ActiveCfg = Debug|Any CPU
+		{EF42A0BC-304F-41D7-BEBD-7326547E2736}.Test|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

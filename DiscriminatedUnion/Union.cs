@@ -36,10 +36,11 @@
 //T1,T2 
 	public class Union<T1,T2> : UnionBase
 	{
-		public Union(ITypeContainer value) : base(value)
-		{
+        public Union(ITypeContainer value) : base(value)
+        {
 		}
-        		
+
+		
 		public Union(T1 value) : base(new Container<T1>(value))
 		{
 		}
@@ -58,11 +59,11 @@
 			return new Union<T1,T2>(item);
 		}
 				
-        public void Deconstruct(out T1 choice1, out T2 choice2)
-        {
-            this.Is(out choice1);
-            this.Is(out choice2);
-        }
+        ////public void Deconstruct(out T1? choice1, out T2? choice2)
+        ////{
+        ////    this.Is(out choice1);
+        ////    this.Is(out choice2);
+        ////}
 
 		public ICase<T1,T2, TReturn> Match<TReturn>() => new Match<T1,T2, TReturn>(Value);
 

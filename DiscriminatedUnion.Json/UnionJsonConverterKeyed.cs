@@ -12,7 +12,6 @@ namespace DiscriminatedUnion.Json
 	/// <typeparam name="TDestination">The type of the destination.</typeparam>
 	/// <seealso cref="Newtonsoft.Json.JsonConverter" />
 	public class UnionJsonConverterKeyed<TDestination> : JsonConverter
-		where TDestination : UnionBase
 	{
 		/// <summary>
 		/// Writes the JSON representation of the object.
@@ -69,7 +68,7 @@ namespace DiscriminatedUnion.Json
 		/// <returns></returns>
 		private TDestination Create(Type containedType, object contained)
 		{
-			Type classType = typeof(TypedContainer<>);
+			Type classType = typeof(Container<>);
 			Type[] typeParams = new Type[] { containedType };
 			Type constructedType = classType.MakeGenericType(typeParams);
 
