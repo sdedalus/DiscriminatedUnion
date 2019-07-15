@@ -3,7 +3,45 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>7.3</LangVersion>
-    <NullableReferenceTypes>true</NullableReferenceTypes>
+
+    <Authors>David Lewis</Authors>
+    <Company>David Lewis</Company>
+    <Description>
+      # DiscriminatedUnion
+      Implementation of Discriminated Union and Pattern Matching in C#.
+
+      ```csharp
+      string outputValue = x.Match&lt;String&gt;()
+      .Case(c =&gt; c == "Test", v =&gt; "It's Test!")
+      .Case(v =&gt; "It's Not Test!")
+      .Else(() =&gt; "It's None!")
+      ```
+      or
+      ```csharp
+      var x = new Union&lt;string, int&gt;(100);
+
+      // the type annotations below are optional and only added for clerity.
+      string value = x.Match&lt;string&gt;()
+      .Case((string v) =&gt; v)
+      .Case((int c) =&gt; c == 100, (int v) =&gt; "Keeping It 100.")
+      .Case((int v) =&gt; "Tea?")
+      .Else(() =&gt; "Nothing");
+
+      Assert.Equal("Keeping It 100.", value);
+      ```
+    </Description>
+    <Copyright>2018 David Lewis</Copyright>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/sdedalus/DiscriminatedUnion</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/sdedalus/DiscriminatedUnion</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>Discriminated, Union, Standard, Functional, Type</PackageTags>
+    <PackageReleaseNotes>Updated the project to .Net Standard 1.1</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyVersion>2.0.0.1</AssemblyVersion>
+    <FileVersion>2.0.0.1</FileVersion>
+    <LangVersion>7.3</LangVersion>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -63,6 +101,10 @@
     <None Update="Union.tt">
       <LastGenOutput>Union.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
 

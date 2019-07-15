@@ -8,7 +8,7 @@
 	/// <typeparam name="T"></typeparam>
 	/// <seealso cref="DiscriminatedUnion.ITypeContainer" />
 	/// <seealso cref="DiscriminatedUnion.IValueContainer{T}" />
-	public class Container<T> : ITypeContainer, IValueContainer<T>
+	public struct Container<T> : ITypeContainer, IValueContainer<T>
 	{
 		/// <summary>
 		/// Gets the type of the contained.
